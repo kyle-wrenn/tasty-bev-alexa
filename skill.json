@@ -1,0 +1,31 @@
+{
+  "manifest": {
+    "publishingInformation": {
+      "locales": {
+        "en-US": {
+          "summary": "New arrival and draft information at Tasty Beverage, Raleigh",
+          "examplePhrases": [
+            "Alexa, open Tasty",
+            "What's on draft?",
+            "What's new?"
+          ],
+          "name": "Tasty Beverage",
+          "description": "Get information about Tasty Beverage like new arrivals and what's on draft."
+        }
+      },
+      "isAvailableWorldwide": false,
+      "testingInstructions": "Ask for draft menu items and new arrivals.",
+      "category": "WINE_AND_BEVERAGE",
+      "distributionCountries": ["US"]
+    },
+    "apis": {
+      "custom": {
+        "endpoint": {
+          "sourceDir": "lambda/custom",
+          "uri": "arn:aws:lambda:us-east-1:594440616035:function:ask-custom-tasty-beverage-default"
+        }
+      }
+    },
+    "manifestVersion": "1.0"
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "deploy_settings": {
+    "default": {
+      "skill_id": "amzn1.ask.skill.49851b4e-0a68-42d7-a0e5-978a3dc108d3",
+      "was_cloned": false,
+      "merge": {},
+      "resources": {
+        "lambda": [
+          {
+            "alexaUsage": [
+              "custom/default"
+            ],
+            "arn": "arn:aws:lambda:us-east-1:594440616035:function:ask-custom-tasty-beverage-default",
+            "awsRegion": "us-east-1",
+            "codeUri": "lambda/custom",
+            "functionName": "ask-custom-tasty-beverage-default",
+            "handler": "index.handler",
+            "revisionId": "e1dfcf45-536e-480a-98eb-8407d1a40e35",
+            "runtime": "nodejs8.10"
+          }
+        ],
+        "manifest": {
+          "eTag": "6517a2680ce682f1279219042e04f731"
+        },
+        "interactionModel": {
+          "en-US": {
+            "eTag": "fff3074bcc60ecfa9e7c203484074bdc"
+          }
+        }
+      }
+    }
+  }
+}
