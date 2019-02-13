@@ -1,7 +1,7 @@
 'use strict';
 
 const request = require('request');
-const tastyUrl = 'https://tastybeverageco.com/raleigh/wp-json/wp/v2/drafts-api'
+const tastyUrl = 'https://tastybeverageco.com/raleigh/wp-json/wp/v2/drafts-api';
 
 class TastyData {
     constructor() {};
