@@ -1,10 +1,10 @@
 {
   "name": "tasty-dev-alexa-lambda",
   "version": "1.0.0",
-  "description": "",
+  "description": "NodeJS lambda for the Tasty Beverage Alexa Skill",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "./node_modules/.bin/mocha tests"
   },
   "author": "Kyle Wrenn <kyle.wrenn@gmail.com>",
   "license": "ISC",
@@ -24,7 +24,7 @@
   },
   "eslintConfig": {
     "env": {
-      "browser": true,
+      "browser": false,
       "node": true
     }
   }
