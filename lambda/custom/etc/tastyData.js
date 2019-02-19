@@ -1,9 +1,9 @@
-
+'use strict';
 
 const request = require('request');
-
 const tastyUrl = 'https://tastybeverageco.com/raleigh/wp-json/wp/v2/drafts-api';
 const Alexa = require('ask-sdk-core');
+const fs = require('fs');
 
 class Draft {
   constructor(beer) {
@@ -19,23 +19,26 @@ class Draft {
     this.breweryState = beer['post-meta-fields'].ba_brewery_state[0];
     this.growlers = beer['post-meta-fields'].ba_growlers[0];
   }
+
+  static getDraftList() {
+    return new Promise((resolve, reject) => {
+      request.get(tastyUrl, (err, response, body) => {
+        if (err) {
+          reject(`There was a problem getting the draft list: ${JSON.stringify(err)}`);
+        } else {
+          const resp = JSON.parse(body);
+          const drafts = [];
+          resp.forEach((draft) => {
+            const item = new Draft(draft);
+            drafts.push(item);
+          });
+          // fs.writeFile('./draft_output.json', drafts);
+          resolve(drafts);
+        }
+      });
+    })
+  }
 }
 
 exports.Draft = Draft;
-
-module.exports = () => new Promise((resolve, reject) => {
-  request.get(tastyUrl, (err, response, body) => {
-    if (err) {
-      reject(`There was a problem getting the draft list: ${JSON.stringify(err)}`);
-    } else {
-      const resp = JSON.parse(body);
-      const drafts = [];
-      resp.forEach((draft) => {
-        const item = new Draft(draft);
-        drafts.push(item);
-      });
-
-      resolve(drafts);
-    }
-  });
-});
+exports.getDraftList = Draft.getDraftList;

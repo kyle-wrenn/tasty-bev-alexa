@@ -2,8 +2,8 @@
 /* eslint-disable  no-console */
 
 const Alexa = require('ask-sdk-core');
-const TastyData = require('./etc/tastyData');
-const tasty = new TastyData();
+const tasty = require('./etc/tastyData');
+const ENV = process.env.ENVIRONMENT || 'AWS';
 
 const LaunchRequestHandler = {
   canHandle(handlerInput) {
@@ -25,7 +25,7 @@ const DraftListHandler = {
       && handlerInput.requestEnvelope.request.intent.name === 'DraftList';
   },
   async handle(handlerInput) {
-    let data = await TastyData.getDraftList();
+    let data = await tasty.getDraftList();
 
     return handlerInput.responseBuilder
       .speak('Currently on draft are...')
@@ -82,7 +82,7 @@ const ErrorHandler = {
     return true;
   },
   handle(handlerInput, error) {
-    console.log(`Error handled: ${error.message}`);
+    console.log(`Error handled: ${error}`);
 
     return handlerInput.responseBuilder
       .speak('Sorry, I can\'t understand the command. Please say again.')
@@ -91,15 +91,42 @@ const ErrorHandler = {
   },
 };
 
-const skillBuilder = Alexa.SkillBuilders.custom();
+let skill;
 
-exports.handler = skillBuilder
-  .addRequestHandlers(
-    LaunchRequestHandler,
-    HelloWorldIntentHandler,
-    HelpIntentHandler,
-    CancelAndStopIntentHandler,
-    SessionEndedRequestHandler
-  )
-  .addErrorHandlers(ErrorHandler)
-  .lambda();
+if (ENV !== 'local') {
+  exports.handler = async (event, context) => {
+    console.log('Not local');
+    if (!skill) {
+      skill = Alexa.SkillBuilders.custom()
+        .addRequestHandlers(
+          LaunchRequestHandler,
+          DraftListHandler
+        )
+        .addErrorHandlers(ErrorHandler)
+        .create();
+    }
+
+    const response = await skill.invoke(event, context);
+    return response;
+  };
+} else {
+  exports.handler = (req, res) => {
+    console.log('local');
+    if (!skill) {
+      skill = Alexa.SkillBuilders.custom()
+        .addRequestHandlers(
+          LaunchRequestHandler,
+          DraftListHandler
+        )
+        .addErrorHandlers(ErrorHandler)
+        .create();
+    }
+    skill.invoke(req.body)
+      .then(function (responseBody) {
+        res.json(responseBody);
+      })
+      .catch(function (error) {
+        res.status(500).send('Error during the request');
+      });
+  };
+}

@@ -3,7 +3,7 @@
 const sinon = require('sinon');
 const { expect } = require('chai');
 const request = require('request');
-const tastyData = require('../etc/tastyData');
+const tastyData = require('../etc/tastyData').getDraftList;
 const mockDraft = require('./sample-drafts.json');
 
 describe('Tasty Beverage', () => {
