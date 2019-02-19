@@ -1,0 +1,16 @@
+service: tasty-dev-alexa-lambda
+
+provider:
+  name: aws
+  runtime: nodejs8.11
+ 
+functions:
+  tasty-dev-alexa-lambda:
+    handler: handler.index
+    events:
+      - alexaSkill
+      - http: POST /hello
+ 
+# Add serverless-local-alexa-server to your plugins: 
+plugins:
+  - serverless-local-alexa-server

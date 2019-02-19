@@ -12,5 +12,20 @@
     "ask-sdk-core": "^2.0.0",
     "ask-sdk-model": "^1.0.0",
     "request": "^2.88.0"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "eslint": "^5.14.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.16.0",
+    "mocha": "^5.2.0",
+    "serverless-local-alexa-server": "^0.2.0",
+    "sinon": "^7.2.3"
+  },
+  "eslintConfig": {
+    "env": {
+      "browser": true,
+      "node": true
+    }
   }
 }

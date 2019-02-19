@@ -2,6 +2,8 @@
 /* eslint-disable  no-console */
 
 const Alexa = require('ask-sdk-core');
+const TastyData = require('./etc/tastyData');
+const tasty = new TastyData();
 
 const LaunchRequestHandler = {
   canHandle(handlerInput) {
@@ -22,24 +24,14 @@ const DraftListHandler = {
     return handlerInput.requestEnvelope.request.type === 'IntentRequest'
       && handlerInput.requestEnvelope.request.intent.name === 'DraftList';
   },
-  handle(handlerInput) {
-    
-  }
-}
-
-const HelloWorldIntentHandler = {
-  canHandle(handlerInput) {
-    return handlerInput.requestEnvelope.request.type === 'IntentRequest'
-      && handlerInput.requestEnvelope.request.intent.name === 'HelloWorldIntent';
-  },
-  handle(handlerInput) {
-    const speechText = 'Hello World!';
+  async handle(handlerInput) {
+    let data = await TastyData.getDraftList();
 
     return handlerInput.responseBuilder
-      .speak(speechText)
-      .withSimpleCard('Hello World', speechText)
+      .speak('Currently on draft are...')
+      .withSimpleCard('Tasty Drafts', {})
       .getResponse();
-  },
+  }
 };
 
 const HelpIntentHandler = {
