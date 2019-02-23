@@ -4,6 +4,7 @@
 const Alexa = require('ask-sdk-core');
 const tasty = require('./etc/tastyData');
 const ENV = process.env.ENVIRONMENT || 'AWS';
+const ResponseBuilder = require('./etc/responseBuilder').ResponseBuilder;
 
 const LaunchRequestHandler = {
   canHandle(handlerInput) {
@@ -25,10 +26,11 @@ const DraftListHandler = {
       && handlerInput.requestEnvelope.request.intent.name === 'DraftList';
   },
   async handle(handlerInput) {
+    let builder = new ResponseBuilder(handlerInput);
     let data = await tasty.getDraftList();
-
+    const speech = builder.buildListSpeech(data);
     return handlerInput.responseBuilder
-      .speak('Currently on draft are...')
+      .speak(speech)
       .withSimpleCard('Tasty Drafts', {})
       .getResponse();
   }

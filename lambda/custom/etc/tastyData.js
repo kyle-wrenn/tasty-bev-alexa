@@ -33,7 +33,6 @@ class Draft {
             drafts.push(item);
           });
           console.log(drafts);
-          fs.writeFile('./draft_output.json', JSON.stringify(drafts));
           resolve(drafts);
         }
       });
