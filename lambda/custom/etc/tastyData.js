@@ -32,7 +32,8 @@ class Draft {
             const item = new Draft(draft);
             drafts.push(item);
           });
-          // fs.writeFile('./draft_output.json', drafts);
+          console.log(drafts);
+          fs.writeFile('./draft_output.json', JSON.stringify(drafts));
           resolve(drafts);
         }
       });
