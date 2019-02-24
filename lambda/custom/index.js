@@ -96,21 +96,14 @@ const ErrorHandler = {
 let skill;
 
 if (ENV !== 'local') {
-  exports.handler = async (event, context) => {
-    console.log('Not local');
-    if (!skill) {
-      skill = Alexa.SkillBuilders.custom()
-        .addRequestHandlers(
-          LaunchRequestHandler,
-          DraftListHandler
-        )
-        .addErrorHandlers(ErrorHandler)
-        .create();
-    }
-
-    const response = await skill.invoke(event, context);
-    return response;
-  };
+  console.log('Not Local');
+  exports.handler = Alexa.SkillBuilders.custom()
+    .addRequestHandlers(
+      LaunchRequestHandler,
+      DraftListHandler
+    )
+    .addErrorHandlers(ErrorHandler)
+    .lambda();
 } else {
   exports.handler = (req, res) => {
     console.log('local');
