@@ -28,10 +28,11 @@ const DraftListHandler = {
   async handle(handlerInput) {
     let builder = new ResponseBuilder(handlerInput);
     let data = await tasty.getDraftList();
-    const speech = builder.buildListSpeech(data);
+    const speech = await builder.buildListSpeech(data);
+    console.log(speech);
     return handlerInput.responseBuilder
       .speak(speech)
-      .withSimpleCard('Tasty Drafts', {})
+      .withShouldEndSession(false)
       .getResponse();
   }
 };
@@ -100,7 +101,9 @@ if (ENV !== 'local') {
   exports.handler = Alexa.SkillBuilders.custom()
     .addRequestHandlers(
       LaunchRequestHandler,
-      DraftListHandler
+      DraftListHandler,
+      CancelAndStopIntentHandler,
+      SessionEndedRequestHandler
     )
     .addErrorHandlers(ErrorHandler)
     .lambda();
@@ -111,7 +114,9 @@ if (ENV !== 'local') {
       skill = Alexa.SkillBuilders.custom()
         .addRequestHandlers(
           LaunchRequestHandler,
-          DraftListHandler
+          DraftListHandler,
+          CancelAndStopIntentHandler,
+          SessionEndedRequestHandler
         )
         .addErrorHandlers(ErrorHandler)
         .create();

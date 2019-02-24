@@ -17,24 +17,26 @@ class ResponseBuilder {
     buildListSpeech(items) {
         let index;
         let speech = '';
-        if(this.attributes.index) {
-            index = this.attributes.index;
-        } else {
-            index = 0;
-            speech += draftIntro;
-        }
-
-        for(let i = index; i < (index + 3); i++) {
-            if (i > items.length-1) {
-                break;
+        return new Promise(resolve => {
+            if (this.attributes.index) {
+                index = this.attributes.index;
+            } else {
+                index = 0;
+                speech += draftIntro;
             }
-            speech += items[i].title + ', ';
-        }
-        speech += '.';
-        if(index < items.length-1) {
-            speech += 'Would you like to hear more?';
-        }
-        return speech;
+
+            for (let i = index; i < (index + 3); i++) {
+                if (i > items.length - 1) {
+                    break;
+                }
+                speech += items[i].title + ', ';
+            }
+            speech += '.';
+            if (index < items.length - 1) {
+                speech += 'Would you like to hear more?';
+            }
+            resolve(speech);
+        })
     }
 };
 
