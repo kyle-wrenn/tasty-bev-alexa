@@ -2,8 +2,6 @@
 
 const request = require('request');
 const tastyUrl = 'https://tastybeverageco.com/raleigh/wp-json/wp/v2/drafts-api';
-const Alexa = require('ask-sdk-core');
-const fs = require('fs');
 
 class Draft {
   constructor(beer) {
@@ -35,7 +33,7 @@ class Draft {
           resolve(drafts);
         }
       });
-    })
+    });
   }
 }
 

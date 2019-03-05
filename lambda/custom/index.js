@@ -6,17 +6,6 @@ const tasty = require('./etc/tastyData');
 const ENV = process.env.ENVIRONMENT || 'AWS';
 const ResponseBuilder = require('./etc/responseBuilder').ResponseBuilder;
 
-let attributes;
-
-const RequestInterceptor = {
-  process(handlerInput) {
-    return new Promise((resolve, reject) => {
-      attributes = handlerInput.attributesManager.getSessionAttributes();
-      resolve();
-    });
-  }
-}
-
 const LaunchRequestHandler = {
   canHandle(handlerInput) {
     return handlerInput.requestEnvelope.request.type === 'LaunchRequest';
@@ -128,7 +117,8 @@ if (ENV !== 'local') {
       DraftListHandler,
       YesIntentHandler,
       CancelAndStopIntentHandler,
-      SessionEndedRequestHandler
+      SessionEndedRequestHandler,
+      HelpIntentHandler
     )
     .addErrorHandlers(ErrorHandler)
     .lambda();
@@ -142,10 +132,8 @@ if (ENV !== 'local') {
           DraftListHandler,
           YesIntentHandler,
           CancelAndStopIntentHandler,
-          SessionEndedRequestHandler
-        )
-        .addRequestInterceptors(
-          RequestInterceptor
+          SessionEndedRequestHandler,
+          HelpIntentHandler
         )
         .addErrorHandlers(ErrorHandler)
         .create();
@@ -155,7 +143,7 @@ if (ENV !== 'local') {
         res.json(responseBody);
       })
       .catch(function (error) {
-        res.status(500).send('Error during the request');
+        res.status(500).send('Error during the request ' + error);
       });
   };
 }

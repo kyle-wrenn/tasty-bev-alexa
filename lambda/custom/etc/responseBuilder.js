@@ -1,13 +1,12 @@
 'use strict';
 
-const Alexa = require('ask-sdk-core');
 let draftIntro = 'The beers currently on draft are: ';
 
 class ResponseBuilder {
   constructor(handlerInput) {
     this.handlerInput = handlerInput;
     this.attributes = handlerInput.attributesManager.getSessionAttributes();
-  };
+  }
 
   async buildOutput(items) {
     let speech;
@@ -26,11 +25,11 @@ class ResponseBuilder {
       .getResponse();
   }
 
-};
-
-function _buildCard(items) {
-
 }
+
+// function _buildCard(items) {
+
+// }
 
 /**
    * Builds list output for speech response
@@ -60,7 +59,7 @@ function _buildListSpeech(_this, items) {
     }
     _this.attributes.index = index + 3;
     resolve(speech);
-  })
+  });
 }
 
 
