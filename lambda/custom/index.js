@@ -22,25 +22,49 @@ const LaunchRequestHandler = {
 
 const DraftListHandler = {
   canHandle(handlerInput) {
-    return handlerInput.requestEnvelope.request.type === 'IntentRequest'
-      && handlerInput.requestEnvelope.request.intent.name === 'DraftList';
+    return handlerInput.requestEnvelope.request.type === 'IntentRequest' &&
+      handlerInput.requestEnvelope.request.intent.name === 'DraftList';
   },
   async handle(handlerInput) {
     let builder = new ResponseBuilder(handlerInput);
     let data = await tasty.getDraftList();
+    handlerInput.attributesManager.setSessionAttributes({
+      drafts: data
+    });
     const speech = await builder.buildListSpeech(data);
-    console.log(speech);
+    handlerInput.attributesManager.setSessionAttributes({
+      previousIntent: 'DraftList'
+    });
     return handlerInput.responseBuilder
       .speak(speech)
       .withShouldEndSession(false)
       .getResponse();
+
+  }
+};
+
+const YesIntentHandler = {
+  canHandle(handlerInput) {
+    return handlerInput.requestEnvelope.request.type === 'IntentRequest' &&
+      handlerInput.requestEnvelope.request.intent.name === 'AMAZON.YesIntent';
+  },
+  async handle(handlerInput) {
+    let builder = new ResponseBuilder(handlerInput);
+    let attributes = handlerInput.attributesManager.getSessionAttributes();
+    if (attributes.previousIntent === 'DraftList') {
+      const speech = await builder.buildListSpeech(attributes.drafts);
+      return handlerInput.responseBuilder
+        .speak(speech)
+        .withShouldEndSession(false)
+        .getResponse();
+    }
   }
 };
 
 const HelpIntentHandler = {
   canHandle(handlerInput) {
-    return handlerInput.requestEnvelope.request.type === 'IntentRequest'
-      && handlerInput.requestEnvelope.request.intent.name === 'AMAZON.HelpIntent';
+    return handlerInput.requestEnvelope.request.type === 'IntentRequest' &&
+      handlerInput.requestEnvelope.request.intent.name === 'AMAZON.HelpIntent';
   },
   handle(handlerInput) {
     const speechText = 'You can say hello to me!';
@@ -55,9 +79,9 @@ const HelpIntentHandler = {
 
 const CancelAndStopIntentHandler = {
   canHandle(handlerInput) {
-    return handlerInput.requestEnvelope.request.type === 'IntentRequest'
-      && (handlerInput.requestEnvelope.request.intent.name === 'AMAZON.CancelIntent'
-        || handlerInput.requestEnvelope.request.intent.name === 'AMAZON.StopIntent');
+    return handlerInput.requestEnvelope.request.type === 'IntentRequest' &&
+      (handlerInput.requestEnvelope.request.intent.name === 'AMAZON.CancelIntent' ||
+        handlerInput.requestEnvelope.request.intent.name === 'AMAZON.StopIntent');
   },
   handle(handlerInput) {
     const speechText = 'Goodbye!';
@@ -102,6 +126,7 @@ if (ENV !== 'local') {
     .addRequestHandlers(
       LaunchRequestHandler,
       DraftListHandler,
+      YesIntentHandler,
       CancelAndStopIntentHandler,
       SessionEndedRequestHandler
     )
@@ -115,6 +140,7 @@ if (ENV !== 'local') {
         .addRequestHandlers(
           LaunchRequestHandler,
           DraftListHandler,
+          YesIntentHandler,
           CancelAndStopIntentHandler,
           SessionEndedRequestHandler
         )
