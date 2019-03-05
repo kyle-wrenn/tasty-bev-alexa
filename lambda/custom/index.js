@@ -32,6 +32,18 @@ const DraftListHandler = {
   }
 };
 
+const StockListHandler = {
+  canHandle(handlerInput) {
+    return handlerInput.requestEnvelope.request.type === 'IntentRequest' &&
+      handlerInput.requestEnvelope.request.intent.name === 'StockList';
+  },
+  async handle(handlerInput) {
+    const stock = await tasty.getNewStock();
+    const builder = new ResponseBuilder(handlerInput);
+    return builder.buildOutput({name: 'stock', value: stock});
+  }
+};
+
 const YesIntentHandler = {
   canHandle(handlerInput) {
     return handlerInput.requestEnvelope.request.type === 'IntentRequest' &&
@@ -110,6 +122,7 @@ if (ENV !== 'local') {
     .addRequestHandlers(
       LaunchRequestHandler,
       DraftListHandler,
+      StockListHandler,
       YesIntentHandler,
       CancelAndStopIntentHandler,
       SessionEndedRequestHandler,
@@ -124,6 +137,7 @@ if (ENV !== 'local') {
         .addRequestHandlers(
           LaunchRequestHandler,
           DraftListHandler,
+          StockListHandler,
           YesIntentHandler,
           CancelAndStopIntentHandler,
           SessionEndedRequestHandler,

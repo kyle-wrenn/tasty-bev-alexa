@@ -1,6 +1,15 @@
 'use strict';
 
-let draftIntro = 'The beers currently on draft are: ';
+const content = {
+  drafts: {
+    cardTitle: 'Draft List',
+    speechIntro: 'The beers currently on draft are: '
+  },
+  stock: {
+    cardTitle: 'New In-Stock',
+    speechIntro: 'Here are some new beers in stock. '
+  }
+};
 
 class ResponseBuilder {
   constructor(handlerInput) {
@@ -10,9 +19,11 @@ class ResponseBuilder {
 
   async buildOutput(items) {
     let speech;
+    let card;
     this.attributes[items.name] = items.value;
     if (Array.isArray(items.value)) {
-      speech = await _buildListSpeech(this, items.value);
+      speech = await _buildListSpeech(this, items);
+      card = _buildCard(items);
     }
     if (this.handlerInput.requestEnvelope.context.System.device.supportedInterfaces.Display) {
       //build the APL interface
@@ -22,14 +33,30 @@ class ResponseBuilder {
     this.handlerInput.attributesManager.setSessionAttributes(this.attributes);
     return this.handlerInput.responseBuilder
       .speak(speech)
+      .withStandardCard(card.title, card.output, 'https://tastybeverageco.com/img/logo.png', 'https://tastybeverageco.com/img/logo.png')
       .getResponse();
   }
 
 }
 
-// function _buildCard(items) {
-
-// }
+function _buildCard(items) {
+  let output = '';
+  let title = content[items.name].cardTitle;
+  items.value.forEach((value, i) => {
+    output += i+1 + ': ' + value.brewery + ' - ' + value.name + '\n';
+    if(value.abv !== 'N/A') {
+      output += value.abv + '%';
+      if(value.style !== 'N/A') {
+        output += ' - ';
+      }
+    }
+    if(value.style !== 'N/A') {
+      output += value.style;
+    }
+    output += '\n\n';
+  });
+  return {title, output};
+}
 
 /**
    * Builds list output for speech response
@@ -44,21 +71,22 @@ function _buildListSpeech(_this, items) {
       index = parseInt(_this.attributes.index);
     } else {
       index = 0;
-      speech += draftIntro;
+      speech += content[items.name].speechIntro;
     }
 
     for (let i = index; i < (index + 3); i++) {
-      if (i >= items.length) {
+      if (i >= items.value.length) {
         break;
       }
-      speech += items[i].title + ', ';
+      speech += items.value[i].title + ', ';
     }
     speech += '.';
     _this.attributes.index = index + 3;
-    if (_this.attributes.index < items.length - 1) {
+    if (_this.attributes.index < items.value.length - 1) {
       speech += 'Would you like to hear more?';
     } else {
       speech += 'What else can I help you with?';
+      delete _this.attributes.index;
     }
     resolve(speech);
   });

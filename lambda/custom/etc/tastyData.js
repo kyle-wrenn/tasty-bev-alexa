@@ -2,8 +2,9 @@
 
 const request = require('request');
 const tastyUrl = 'https://tastybeverageco.com/raleigh/wp-json/wp/v2/drafts-api';
+const stockUrl = 'https://tastybeverageco.com/raleigh/wp-json/wp/v2/beer-api';
 
-class Draft {
+class Beer {
   constructor(beer) {
     this.id = beer.id;
     this.type = beer.type;
@@ -15,7 +16,6 @@ class Draft {
     this.brewery = beer['post-meta-fields'].ba_brewery_name[0];
     this.breweryCity = beer['post-meta-fields'].ba_brewery_city[0];
     this.breweryState = beer['post-meta-fields'].ba_brewery_state[0];
-    this.growlers = beer['post-meta-fields'].ba_growlers[0];
   }
 
   static getDraftList() {
@@ -27,7 +27,7 @@ class Draft {
           const resp = JSON.parse(body);
           const drafts = [];
           resp.forEach((draft) => {
-            const item = new Draft(draft);
+            const item = new Beer(draft);
             drafts.push(item);
           });
           resolve(drafts);
@@ -35,7 +35,26 @@ class Draft {
       });
     });
   }
+
+  static getNewStock() {
+    return new Promise((resolve, reject) => {
+      request.get(stockUrl, (err, response, body) => {
+        if (err) {
+          reject(`There was a problem getting the stock list: ${JSON.stringify(err)}`);
+        } else {
+          const resp = JSON.parse(body);
+          const stock = [];
+          resp.forEach((item) => {
+            const beer = new Beer(item);
+            stock.push(beer);
+          });
+          resolve(stock);
+        }
+      });
+    });
+  }
 }
 
-exports.Draft = Draft;
-exports.getDraftList = Draft.getDraftList;
+exports.Beer = Beer;
+exports.getDraftList = Beer.getDraftList;
+exports.getNewStock = Beer.getNewStock;
