@@ -32,7 +32,6 @@ class Draft {
             const item = new Draft(draft);
             drafts.push(item);
           });
-          console.log(drafts);
           resolve(drafts);
         }
       });

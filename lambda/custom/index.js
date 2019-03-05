@@ -6,6 +6,17 @@ const tasty = require('./etc/tastyData');
 const ENV = process.env.ENVIRONMENT || 'AWS';
 const ResponseBuilder = require('./etc/responseBuilder').ResponseBuilder;
 
+let attributes;
+
+const RequestInterceptor = {
+  process(handlerInput) {
+    return new Promise((resolve, reject) => {
+      attributes = handlerInput.attributesManager.getSessionAttributes();
+      resolve();
+    });
+  }
+}
+
 const LaunchRequestHandler = {
   canHandle(handlerInput) {
     return handlerInput.requestEnvelope.request.type === 'LaunchRequest';
@@ -26,20 +37,9 @@ const DraftListHandler = {
       handlerInput.requestEnvelope.request.intent.name === 'DraftList';
   },
   async handle(handlerInput) {
-    let builder = new ResponseBuilder(handlerInput);
-    let data = await tasty.getDraftList();
-    handlerInput.attributesManager.setSessionAttributes({
-      drafts: data
-    });
-    const speech = await builder.buildListSpeech(data);
-    handlerInput.attributesManager.setSessionAttributes({
-      previousIntent: 'DraftList'
-    });
-    return handlerInput.responseBuilder
-      .speak(speech)
-      .withShouldEndSession(false)
-      .getResponse();
-
+    const drafts = await tasty.getDraftList();
+    const builder = new ResponseBuilder(handlerInput);
+    return builder.buildOutput({name: 'drafts', value: drafts});
   }
 };
 
@@ -143,6 +143,9 @@ if (ENV !== 'local') {
           YesIntentHandler,
           CancelAndStopIntentHandler,
           SessionEndedRequestHandler
+        )
+        .addRequestInterceptors(
+          RequestInterceptor
         )
         .addErrorHandlers(ErrorHandler)
         .create();
