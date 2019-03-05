@@ -41,7 +41,7 @@ function _buildListSpeech(_this, items) {
   let speech = '';
   return new Promise(resolve => {
     if (_this.attributes.index) {
-      index = _this.attributes.index;
+      index = parseInt(_this.attributes.index);
     } else {
       index = 0;
       speech += draftIntro;
@@ -54,10 +54,12 @@ function _buildListSpeech(_this, items) {
       speech += items[i].title + ', ';
     }
     speech += '.';
-    if (index < items.length - 1) {
-      speech += 'Would you like to hear more?';
-    }
     _this.attributes.index = index + 3;
+    if (_this.attributes.index < items.length - 1) {
+      speech += 'Would you like to hear more?';
+    } else {
+      speech += 'What else can I help you with?';
+    }
     resolve(speech);
   });
 }

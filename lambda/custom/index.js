@@ -41,11 +41,7 @@ const YesIntentHandler = {
     let builder = new ResponseBuilder(handlerInput);
     let attributes = handlerInput.attributesManager.getSessionAttributes();
     if (attributes.previousIntent === 'DraftList') {
-      const speech = await builder.buildListSpeech(attributes.drafts);
-      return handlerInput.responseBuilder
-        .speak(speech)
-        .withShouldEndSession(false)
-        .getResponse();
+      return builder.buildOutput({name: 'drafts', value: attributes.drafts});
     }
   }
 };
@@ -110,7 +106,6 @@ const ErrorHandler = {
 let skill;
 
 if (ENV !== 'local') {
-  console.log('Not Local');
   exports.handler = Alexa.SkillBuilders.custom()
     .addRequestHandlers(
       LaunchRequestHandler,
@@ -124,7 +119,6 @@ if (ENV !== 'local') {
     .lambda();
 } else {
   exports.handler = (req, res) => {
-    console.log('local');
     if (!skill) {
       skill = Alexa.SkillBuilders.custom()
         .addRequestHandlers(
