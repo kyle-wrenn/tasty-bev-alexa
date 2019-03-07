@@ -275,7 +275,7 @@
                             },
                             {
                                 "type": "Container",
-                                "width": "70%",
+                                "width": "68%",
                                 "alignItems": "start",
                                 "direction": "column",
                                 "spacing": "30",

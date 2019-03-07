@@ -1,0 +1,36 @@
+{
+    "listTemplate1Metadata": {
+        "type": "object",
+        "objectId": "lt1Metadata",
+        "backgroundImage": {
+            "contentDescription": null,
+            "smallSourceUrl": null,
+            "largeSourceUrl": null,
+            "sources": [
+                {
+                    "url": "https://tastybeverageco.com/img/bg.jpg",
+                    "size": "small",
+                    "widthPixels": 0,
+                    "heightPixels": 0
+                },
+                {
+                    "url": "https://tastybeverageco.com/img/bg.jpg",
+                    "size": "large",
+                    "widthPixels": 0,
+                    "heightPixels": 0
+                }
+            ]
+        },
+        "title": "Tasty Beverage - Raleigh",
+        "subtitle": "Draft List",
+        "logoUrl": "http://tastybev.beer/alexa/tasty-logo.png"
+    },
+    "listTemplate1ListData": {
+        "type": "list",
+        "listId": "lt1Sample",
+        "totalNumberOfItems": 9,
+        "listPage": {
+            "listItems": []
+        }
+    }
+}

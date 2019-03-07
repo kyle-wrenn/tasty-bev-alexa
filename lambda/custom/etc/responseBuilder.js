@@ -1,5 +1,4 @@
 'use strict';
-
 const content = {
   drafts: {
     cardTitle: 'Draft List',
@@ -26,7 +25,7 @@ class ResponseBuilder {
       card = _buildCard(items);
     }
     if (this.handlerInput.requestEnvelope.context.System.device.supportedInterfaces.Display) {
-      //build the APL interface
+      this.handlerInput.responseBuilder.addDirective(_buildView(items));
     }
 
     this.attributes.previousIntent = this.handlerInput.requestEnvelope.request.intent.name;
@@ -37,6 +36,18 @@ class ResponseBuilder {
       .getResponse();
   }
 
+}
+
+function _buildView(items) {
+  let template = require(__dirname + '/../data/' + items.name + '.json');
+  let data = require(__dirname + '/../data/' + items.name + '-source.json');
+  data.listTemplate1ListData.listPage.listItems = items.value;
+  return {
+    type: 'Alexa.Presentation.APL.RenderDocument',
+    version: '1.0',
+    document: template,
+    datasources: data
+  };
 }
 
 function _buildCard(items) {

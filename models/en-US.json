@@ -20,7 +20,20 @@
           "samples": [
             "draft list",
             "whats on draft",
-            "drafts"
+            "drafts",
+            "beers on draft"
+          ]
+        },
+        {
+          "name": "StockList",
+          "samples": [
+            "whats new",
+            "stock",
+            "stock list",
+            "whats in stock",
+            "new arrivals",
+            "new beers",
+            "new beer in stock"
           ]
         }
       ]
