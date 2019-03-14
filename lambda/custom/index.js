@@ -84,6 +84,7 @@ const CancelAndStopIntentHandler = {
     const speechText = 'Goodbye!';
 
     return handlerInput.responseBuilder
+      .withShouldEndSession(true)
       .speak(speechText)
       .withSimpleCard('Hello World', speechText)
       .getResponse();
@@ -97,7 +98,7 @@ const SessionEndedRequestHandler = {
   handle(handlerInput) {
     console.log(`Session ended with reason: ${handlerInput.requestEnvelope.request.reason}`);
 
-    return handlerInput.responseBuilder.getResponse();
+    return handlerInput.responseBuilder.withShouldEndSession(true).getResponse();
   },
 };
 

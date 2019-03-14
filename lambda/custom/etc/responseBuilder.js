@@ -54,19 +54,19 @@ function _buildCard(items) {
   let output = '';
   let title = content[items.name].cardTitle;
   items.value.forEach((value, i) => {
-    output += i+1 + ': ' + value.brewery + ' - ' + value.name + '\n';
-    if(value.abv !== 'N/A') {
+    output += i + 1 + ': ' + value.brewery + ' - ' + value.name + '\n';
+    if (value.abv !== 'N/A') {
       output += value.abv + '%';
-      if(value.style !== 'N/A') {
+      if (value.style !== 'N/A') {
         output += ' - ';
       }
     }
-    if(value.style !== 'N/A') {
+    if (value.style !== 'N/A') {
       output += value.style;
     }
     output += '\n\n';
   });
-  return {title, output};
+  return { title, output };
 }
 
 /**
@@ -95,6 +95,7 @@ function _buildListSpeech(_this, items) {
     _this.attributes.index = index + 3;
     if (_this.attributes.index < items.value.length - 1) {
       speech += 'Would you like to hear more?';
+      _this.handlerInput.responseBuilder.addConfirmIntentDirective();
     } else {
       speech += 'What else can I help you with?';
       delete _this.attributes.index;
