@@ -25,7 +25,9 @@ class ResponseBuilder {
       card = _buildCard(items);
     }
     if (this.handlerInput.requestEnvelope.context.System.device.supportedInterfaces.Display) {
-      this.handlerInput.responseBuilder.addDirective(_buildView(items));
+      if (this.attributes.previousIntent != this.handlerInput.requestEnvelope.request.name) {
+        this.handlerInput.responseBuilder.addDirective(_buildView(items));
+      }
     }
 
     this.attributes.previousIntent = this.handlerInput.requestEnvelope.request.intent.name;
@@ -95,7 +97,6 @@ function _buildListSpeech(_this, items) {
     _this.attributes.index = index + 3;
     if (_this.attributes.index < items.value.length - 1) {
       speech += 'Would you like to hear more?';
-      _this.handlerInput.responseBuilder.addConfirmIntentDirective();
     } else {
       speech += 'What else can I help you with?';
       delete _this.attributes.index;

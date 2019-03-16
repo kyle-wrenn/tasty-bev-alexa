@@ -20,16 +20,36 @@ const LaunchRequestHandler = {
   },
 };
 
+const RestartHandler = {
+  canHandle(handlerInput) {
+    return handlerInput.requestEnvelope.request.type === 'IntentRequest' &&
+      handlerInput.requestEnvelope.request.intent.name === 'AMAZON.StartOverIntent';
+  },
+  handle(handlerInput) {
+    const speech = 'Ok, what else can I do for you?';
+    return handlerInput.responseBuilder
+      .withShouldEndSession(false)
+      .speak(speech)
+      .getResponse();
+  }
+};
+
 const DraftListHandler = {
   canHandle(handlerInput) {
     return handlerInput.requestEnvelope.request.type === 'IntentRequest' &&
       handlerInput.requestEnvelope.request.intent.name === 'DraftList';
   },
   async handle(handlerInput) {
-    const drafts = await tasty.getDraftList();
-    const builder = new ResponseBuilder(handlerInput);
-    return builder.buildOutput({name: 'drafts', value: drafts});
+    if (handlerInput.requestEnvelope.request.intent.confirmationStatus != 'DENIED') {
+      const drafts = await tasty.getDraftList();
+      const builder = new ResponseBuilder(handlerInput);
+      return builder.buildOutput({ name: 'drafts', value: drafts });
+    } else {
+      handlerInput.requestEnvelope.request.intent.name = 'AMAZON.StartOverIntent';
+      return RestartHandler.handle(handlerInput);
+    }
   }
+
 };
 
 const StockListHandler = {
@@ -40,7 +60,7 @@ const StockListHandler = {
   async handle(handlerInput) {
     const stock = await tasty.getNewStock();
     const builder = new ResponseBuilder(handlerInput);
-    return builder.buildOutput({name: 'stock', value: stock});
+    return builder.buildOutput({ name: 'stock', value: stock });
   }
 };
 
@@ -50,11 +70,22 @@ const YesIntentHandler = {
       handlerInput.requestEnvelope.request.intent.name === 'AMAZON.YesIntent';
   },
   async handle(handlerInput) {
-    let builder = new ResponseBuilder(handlerInput);
     let attributes = handlerInput.attributesManager.getSessionAttributes();
     if (attributes.previousIntent === 'DraftList') {
-      return builder.buildOutput({name: 'drafts', value: attributes.drafts});
+      return DraftListHandler.handle(handlerInput);
+    } else {
+      return RestartHandler.handle(handlerInput);
     }
+  }
+};
+
+const NoIntentHandler = {
+  canHandle(handlerInput) {
+    return handlerInput.requestEnvelope.request.type === 'IntentRequest' &&
+      handlerInput.requestEnvelope.request.intent.name === 'AMAZON.NoIntent';
+  },
+  handle(handlerInput) {
+    return RestartHandler.handle(handlerInput);
   }
 };
 
@@ -125,6 +156,7 @@ if (ENV !== 'local') {
       DraftListHandler,
       StockListHandler,
       YesIntentHandler,
+      NoIntentHandler,
       CancelAndStopIntentHandler,
       SessionEndedRequestHandler,
       HelpIntentHandler
@@ -140,6 +172,7 @@ if (ENV !== 'local') {
           DraftListHandler,
           StockListHandler,
           YesIntentHandler,
+          NoIntentHandler,
           CancelAndStopIntentHandler,
           SessionEndedRequestHandler,
           HelpIntentHandler

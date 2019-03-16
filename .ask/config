@@ -15,7 +15,7 @@
             "codeUri": "lambda/custom",
             "functionName": "ask-custom-tasty-beverage-default",
             "handler": "index.handler",
-            "revisionId": "a6a032e3-d8b0-47f7-8496-c5da8f78cfaa",
+            "revisionId": "8c5d116e-996c-41a5-985e-03bb85f2c8d2",
             "runtime": "nodejs8.10"
           }
         ],
