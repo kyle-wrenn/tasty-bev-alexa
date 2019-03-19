@@ -11,12 +11,8 @@ const LaunchRequestHandler = {
     return handlerInput.requestEnvelope.request.type === 'LaunchRequest';
   },
   handle(handlerInput) {
-    const speechText = 'Welcome to Tasty Beverage! I can tell you about the draft list or new arrivals. What would you like to do?';
-
-    return handlerInput.responseBuilder
-      .speak(speechText)
-      .reprompt('I can tell you about the draft list or new arrivals. What would you like to do?')
-      .getResponse();
+    const builder = new ResponseBuilder(handlerInput);
+    return builder.buildOutput({ name: 'launch' }); 
   },
 };
 
@@ -40,14 +36,9 @@ const DraftListHandler = {
       handlerInput.requestEnvelope.request.intent.name === 'DraftList';
   },
   async handle(handlerInput) {
-    if (handlerInput.requestEnvelope.request.intent.confirmationStatus != 'DENIED') {
-      const drafts = await tasty.getDraftList();
-      const builder = new ResponseBuilder(handlerInput);
-      return builder.buildOutput({ name: 'drafts', value: drafts });
-    } else {
-      handlerInput.requestEnvelope.request.intent.name = 'AMAZON.StartOverIntent';
-      return RestartHandler.handle(handlerInput);
-    }
+    const drafts = await tasty.getDraftList();
+    const builder = new ResponseBuilder(handlerInput);
+    return builder.buildOutput({ name: 'drafts', value: drafts });
   }
 
 };

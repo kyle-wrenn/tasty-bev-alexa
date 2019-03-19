@@ -1,5 +1,9 @@
 'use strict';
 const content = {
+  launch: {
+    speech: 'Welcome to Tasty Beverage! I can tell you about the draft list or new arrivals. What would you like to do?',
+    reprompt: 'I can tell you about the draft list or new arrivals. What would you like to do?'
+  },
   drafts: {
     cardTitle: 'Draft List',
     speechIntro: 'The beers currently on draft are: '
@@ -19,22 +23,28 @@ class ResponseBuilder {
   async buildOutput(items) {
     let speech;
     let card;
-    this.attributes[items.name] = items.value;
+    this.attributes[items.name] = items.value || {};
     if (Array.isArray(items.value)) {
       speech = await _buildListSpeech(this, items);
       card = _buildCard(items);
+    } else {
+      speech = content[items.name].speech;
+      if (content[items.name].reprompt) {
+        this.handlerInput.responseBuilder.reprompt(content[items.name].reprompt);
+      }
     }
     if (this.handlerInput.requestEnvelope.context.System.device.supportedInterfaces.Display) {
-      if (this.attributes.previousIntent != this.handlerInput.requestEnvelope.request.name) {
-        this.handlerInput.responseBuilder.addDirective(_buildView(items));
-      }
+      this.handlerInput.responseBuilder.addDirective(_buildView(items));
+      // if (this.attributes.previousIntent == this.handlerInput.requestEnvelope.request.name) {
+      //   this.handlerInput.responseBuilder.addDirective(_buildView(items));
+      // }
     }
 
     this.attributes.previousIntent = this.handlerInput.requestEnvelope.request.intent.name;
     this.handlerInput.attributesManager.setSessionAttributes(this.attributes);
     return this.handlerInput.responseBuilder
       .speak(speech)
-      .withStandardCard(card.title, card.output, 'https://tastybeverageco.com/img/logo.png', 'https://tastybeverageco.com/img/logo.png')
+      // .withStandardCard(card.title, card.output, 'https://tastybeverageco.com/img/logo.png', 'https://tastybeverageco.com/img/logo.png')
       .getResponse();
   }
 
@@ -43,7 +53,9 @@ class ResponseBuilder {
 function _buildView(items) {
   let template = require(__dirname + '/../data/' + items.name + '.json');
   let data = require(__dirname + '/../data/' + items.name + '-source.json');
-  data.listTemplate1ListData.listPage.listItems = items.value;
+  if (Array.isArray(items.value)) {
+    data.listTemplate1ListData.listPage.listItems = items.value;
+  }
   return {
     type: 'Alexa.Presentation.APL.RenderDocument',
     version: '1.0',
@@ -100,6 +112,7 @@ function _buildListSpeech(_this, items) {
     } else {
       speech += 'What else can I help you with?';
       delete _this.attributes.index;
+      delete _this.attributes.previousIntent;
     }
     resolve(speech);
   });

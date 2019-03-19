@@ -1,0 +1,69 @@
+{
+    "bodyTemplate3Data": {
+        "type": "object",
+        "objectId": "bt3Sample",
+        "backgroundImage": {
+            "contentDescription": null,
+            "smallSourceUrl": null,
+            "largeSourceUrl": null,
+            "sources": [
+                {
+                    "url": "https://tastybeverageco.com/img/bg.jpg",
+                    "size": "small",
+                    "widthPixels": 0,
+                    "heightPixels": 0
+                },
+                {
+                    "url": "https://tastybeverageco.com/img/bg.jpg",
+                    "size": "large",
+                    "widthPixels": 0,
+                    "heightPixels": 0
+                }
+            ]
+        },
+        "title": "Tasty Beverage - Raleigh",
+        "image": {
+            "contentDescription": null,
+            "smallSourceUrl": null,
+            "largeSourceUrl": null,
+            "sources": [
+                {
+                    "url": "https://tastybeverageco.com/img/logo.png",
+                    "size": "small",
+                    "widthPixels": 0,
+                    "heightPixels": 0
+                },
+                {
+                    "url": "https://tastybeverageco.com/img/logo.png",
+                    "size": "large",
+                    "widthPixels": 0,
+                    "heightPixels": 0
+                }
+            ]
+        },
+        "textContent": {
+            "headerTitle": {
+                "type": "PlainText",
+                "text": "Tasty Beverage - Raleigh"
+            },
+            "title1": {
+                "type": "PlainText",
+                "text": "Drafts"
+            },
+            "title2": {
+                "type": "PlainText",
+                "text": "New Arrivals"
+            },
+            "draftContent": {
+                "type": "RichText",
+                "text": "Get the current beers on draft.\n<i>We also have Pine State Coffee on tap!</i>"
+            },
+            "arrivalContent": {
+                "type": "RichText",
+                "text": "Check out the latest wine and beer in stock."
+            }
+        },
+        "logoUrl": "http://tastybev.beer/alexa/tasty-logo.png",
+        "hintText": "Try, \"Alexa, ask Tasty what's on draft\""
+    }
+}
