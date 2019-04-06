@@ -205,12 +205,12 @@
                 ],
                 "item": [
                     {
-                        "type": "Container",
                         "when": "${viewport.shape == 'round'}",
+                        "type": "Container",
+                        "direction": "row",
+                        "height": 200,
                         "width": "100%",
                         "alignItems": "center",
-                        "direction": "row",
-                        "spacing": "10dp",
                         "items": [
                             {
                                 "type": "Text",
@@ -222,29 +222,37 @@
                             },
                             {
                                 "type": "Container",
-                                "width": "80%",
                                 "direction": "column",
-                                "spacing": "25",
+                                "spacing": 25,
                                 "items": [
                                     {
                                         "type": "Text",
-                                        "style": "textStylePrimary",
+                                        "style": "textStyleDetail",
                                         "fontFamily": "Museo Slab, Helvetica",
-                                        "maxLines": 2,
-                                        "text": "${beerName}",
+                                        "maxLines": 1,
+                                        "text": "${primaryText}",
                                         "fontWeight": "300",
                                         "grow": 1,
                                         "shrink": 1
                                     },
                                     {
                                         "type": "Text",
-                                        "style": "textStyleDetails",
+                                        "style": "textStyleCaption",
                                         "fontFamily": "Museo Slab, Helvetica",
                                         "maxLines": 1,
-                                        "text": "${style} - ${abv}%",
+                                        "text": "${secondaryText}",
                                         "fontWeight": "300",
                                         "grow": 1,
                                         "shrink": 1
+                                    },
+                                    {
+                                        "type": "Text",
+                                        "text": "${tertiaryText}",
+                                        "style": "textStyleDetails",
+                                        "fontWeight": "300",
+                                        "grow": 1,
+                                        "shrink": 1,
+                                        "maxLines": 1
                                     }
                                 ]
                             }
@@ -341,6 +349,151 @@
                     "type": "ListTemplate1"
                 }
             ]
+        }
+    },
+    "datasources": {
+        "listTemplate1Metadata": {
+            "type": "object",
+            "objectId": "lt1Metadata",
+            "backgroundImage": {
+                "contentDescription": null,
+                "smallSourceUrl": null,
+                "largeSourceUrl": null,
+                "sources": [
+                    {
+                        "url": "https://tastybeverageco.com/img/bg.jpg",
+                        "size": "small",
+                        "widthPixels": 0,
+                        "heightPixels": 0
+                    },
+                    {
+                        "url": "https://tastybeverageco.com/img/bg.jpg",
+                        "size": "large",
+                        "widthPixels": 0,
+                        "heightPixels": 0
+                    }
+                ]
+            },
+            "title": "Tasty Beverage - Raleigh",
+            "subtitle": "Draft List",
+            "logoUrl": "http://tastybev.beer/alexa/tasty-logo.png"
+        },
+        "listTemplate1ListData": {
+            "type": "list",
+            "listId": "lt1Sample",
+            "totalNumberOfItems": 9,
+            "listPage": {
+                "listItems": [
+                    {
+                        "id": 7655,
+                        "type": "drafts",
+                        "title": "Heist Brewery Big Pick&#8217;n",
+                        "name": "Big Pick'n",
+                        "style": "Sour - Berliner Weisse",
+                        "abv": "6.1",
+                        "ibu": "N/A",
+                        "brewery": "Heist Brewery",
+                        "breweryCity": "Charlotte",
+                        "breweryState": "North Carolina"
+                    },
+                    {
+                        "id": 7654,
+                        "type": "drafts",
+                        "title": "Grimm Artisanal Ales Maximum Delight",
+                        "name": "Maximum Delight",
+                        "style": "IPA - Imperial / Double",
+                        "abv": "8.1",
+                        "ibu": "N/A",
+                        "brewery": "Grimm Artisanal Ales",
+                        "breweryCity": "Brooklyn",
+                        "breweryState": "New York"
+                    },
+                    {
+                        "id": 7646,
+                        "type": "drafts",
+                        "title": "Grimm Artisanal Ales Maximum Delight",
+                        "name": "Maximum Delight",
+                        "style": "IPA - Imperial / Double",
+                        "abv": "8.0",
+                        "ibu": "N/A",
+                        "brewery": "Grimm Artisanal Ales",
+                        "breweryCity": "Brooklyn",
+                        "breweryState": "New York"
+                    },
+                    {
+                        "id": 7628,
+                        "type": "drafts",
+                        "title": "Sierra Nevada Brewing Co. Trip In the Woods: Vintage Bigfoot",
+                        "name": "Trip In the Woods: Vintage Bigfoot",
+                        "style": "Barleywine - American",
+                        "abv": "12.1",
+                        "ibu": "N/A",
+                        "brewery": "Sierra Nevada Brewing Co.",
+                        "breweryCity": "Chico",
+                        "breweryState": "California"
+                    },
+                    {
+                        "id": 7615,
+                        "type": "drafts",
+                        "title": "Mikkeller Brewing San Diego Windy Hill",
+                        "name": "Windy Hill",
+                        "style": "IPA - New England",
+                        "abv": "7.0",
+                        "ibu": "70",
+                        "brewery": "Mikkeller Brewing San Diego",
+                        "breweryCity": "San Diego",
+                        "breweryState": "California"
+                    },
+                    {
+                        "id": 7614,
+                        "type": "drafts",
+                        "title": "Heist Brewery Donkere Dagen",
+                        "name": "Donkere Dagen",
+                        "style": "Belgian Strong Dark Ale",
+                        "abv": "7.8",
+                        "ibu": "N/A",
+                        "brewery": "Heist Brewery",
+                        "breweryCity": "Charlotte",
+                        "breweryState": "North Carolina"
+                    },
+                    {
+                        "id": 7613,
+                        "type": "drafts",
+                        "title": "Birds Fly South Ale Project Rustic Sunday",
+                        "name": "Rustic Sunday",
+                        "style": "Saison / Farmhouse Ale",
+                        "abv": "7.0",
+                        "ibu": "32",
+                        "brewery": "Birds Fly South Ale Project",
+                        "breweryCity": "Greenville",
+                        "breweryState": "South Carolina"
+                    },
+                    {
+                        "id": 7611,
+                        "type": "drafts",
+                        "title": "Mikkeller Brewing San Diego Staff Magician",
+                        "name": "Staff Magician",
+                        "style": "Pale Ale - New England",
+                        "abv": "5.5",
+                        "ibu": "N/A",
+                        "brewery": "Mikkeller Brewing San Diego",
+                        "breweryCity": "San Diego",
+                        "breweryState": "California"
+                    },
+                    {
+                        "id": 7554,
+                        "type": "drafts",
+                        "title": "Prairie Artisan Ales Oh! Fudge",
+                        "name": "Oh! Fudge",
+                        "style": "Stout - Imperial / Double",
+                        "abv": "11.5",
+                        "ibu": "120",
+                        "brewery": "Prairie Artisan Ales",
+                        "breweryCity": "Krebs",
+                        "breweryState": "Oklahoma"
+                    }
+                ]
+            }
         }
     }
 }

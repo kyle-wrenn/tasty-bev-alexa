@@ -20,32 +20,37 @@ class ResponseBuilder {
     this.attributes = handlerInput.attributesManager.getSessionAttributes();
   }
 
-  async buildOutput(items) {
+  buildOutput(items) {
     let speech;
     let card;
     this.attributes[items.name] = items.value || {};
-    if (Array.isArray(items.value)) {
-      speech = await _buildListSpeech(this, items);
-      card = _buildCard(items);
-    } else {
-      speech = content[items.name].speech;
-      if (content[items.name].reprompt) {
-        this.handlerInput.responseBuilder.reprompt(content[items.name].reprompt);
+    return new Promise(async resolve => {
+      if (Array.isArray(items.value)) {
+        speech = await _buildListSpeech(this, items);
+        card = _buildCard(items);
+      } else {
+        speech = content[items.name].speech;
+        if (content[items.name].reprompt) {
+          this.handlerInput.responseBuilder.reprompt(content[items.name].reprompt);
+        }
       }
-    }
-    if (this.handlerInput.requestEnvelope.context.System.device.supportedInterfaces.Display) {
-      this.handlerInput.responseBuilder.addDirective(_buildView(items));
-      // if (this.attributes.previousIntent == this.handlerInput.requestEnvelope.request.name) {
-      //   this.handlerInput.responseBuilder.addDirective(_buildView(items));
-      // }
-    }
-
-    this.attributes.previousIntent = this.handlerInput.requestEnvelope.request.intent.name;
-    this.handlerInput.attributesManager.setSessionAttributes(this.attributes);
-    return this.handlerInput.responseBuilder
-      .speak(speech)
-      // .withStandardCard(card.title, card.output, 'https://tastybeverageco.com/img/logo.png', 'https://tastybeverageco.com/img/logo.png')
-      .getResponse();
+  
+      if (this.attributes.previousIntent) {
+        if (this.attributes.previousIntent != this.handlerInput.requestEnvelope.request.name &&
+            this.handlerInput.requestEnvelope.context.System.device.supportedInterfaces.Display) {
+          this.handlerInput.responseBuilder.addDirective(_buildView(items));
+        }
+      } else {
+        this.handlerInput.responseBuilder.addDirective(_buildView(items));
+      }
+  
+      this.attributes.previousIntent = (
+        this.handlerInput.requestEnvelope.request.intent ? 
+          this.handlerInput.requestEnvelope.request.intent.name : 
+          this.handlerInput.requestEnvelope.request.type);
+      this.handlerInput.attributesManager.setSessionAttributes(this.attributes);
+      resolve(this.handlerInput.responseBuilder.speak(speech).getResponse());
+    });
   }
 
 }

@@ -10,9 +10,9 @@ const LaunchRequestHandler = {
   canHandle(handlerInput) {
     return handlerInput.requestEnvelope.request.type === 'LaunchRequest';
   },
-  handle(handlerInput) {
+  async handle(handlerInput) {
     const builder = new ResponseBuilder(handlerInput);
-    return builder.buildOutput({ name: 'launch' }); 
+    return await builder.buildOutput({ name: 'launch' }); 
   },
 };
 
