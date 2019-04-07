@@ -1,4 +1,5 @@
-[{
+[
+  {
     "id": 6961,
     "date": "2019-02-11T21:32:35",
     "date_gmt": "2019-02-12T01:32:35",
@@ -48,23 +49,33 @@
       ]
     },
     "_links": {
-      "self": [{
-        "href": "https:\/\/tastybeverageco.com\/raleigh\/wp-json\/wp\/v2\/drafts-api\/6961"
-      }],
-      "collection": [{
-        "href": "https:\/\/tastybeverageco.com\/raleigh\/wp-json\/wp\/v2\/drafts-api"
-      }],
-      "about": [{
-        "href": "https:\/\/tastybeverageco.com\/raleigh\/wp-json\/wp\/v2\/types\/drafts"
-      }],
-      "wp:attachment": [{
-        "href": "https:\/\/tastybeverageco.com\/raleigh\/wp-json\/wp\/v2\/media?parent=6961"
-      }],
-      "curies": [{
-        "name": "wp",
-        "href": "https:\/\/api.w.org\/{rel}",
-        "templated": true
-      }]
+      "self": [
+        {
+          "href": "https:\/\/tastybeverageco.com\/raleigh\/wp-json\/wp\/v2\/drafts-api\/6961"
+        }
+      ],
+      "collection": [
+        {
+          "href": "https:\/\/tastybeverageco.com\/raleigh\/wp-json\/wp\/v2\/drafts-api"
+        }
+      ],
+      "about": [
+        {
+          "href": "https:\/\/tastybeverageco.com\/raleigh\/wp-json\/wp\/v2\/types\/drafts"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https:\/\/tastybeverageco.com\/raleigh\/wp-json\/wp\/v2\/media?parent=6961"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https:\/\/api.w.org\/{rel}",
+          "templated": true
+        }
+      ]
     }
   },
   {
@@ -117,23 +128,33 @@
       ]
     },
     "_links": {
-      "self": [{
-        "href": "https:\/\/tastybeverageco.com\/raleigh\/wp-json\/wp\/v2\/drafts-api\/6957"
-      }],
-      "collection": [{
-        "href": "https:\/\/tastybeverageco.com\/raleigh\/wp-json\/wp\/v2\/drafts-api"
-      }],
-      "about": [{
-        "href": "https:\/\/tastybeverageco.com\/raleigh\/wp-json\/wp\/v2\/types\/drafts"
-      }],
-      "wp:attachment": [{
-        "href": "https:\/\/tastybeverageco.com\/raleigh\/wp-json\/wp\/v2\/media?parent=6957"
-      }],
-      "curies": [{
-        "name": "wp",
-        "href": "https:\/\/api.w.org\/{rel}",
-        "templated": true
-      }]
+      "self": [
+        {
+          "href": "https:\/\/tastybeverageco.com\/raleigh\/wp-json\/wp\/v2\/drafts-api\/6957"
+        }
+      ],
+      "collection": [
+        {
+          "href": "https:\/\/tastybeverageco.com\/raleigh\/wp-json\/wp\/v2\/drafts-api"
+        }
+      ],
+      "about": [
+        {
+          "href": "https:\/\/tastybeverageco.com\/raleigh\/wp-json\/wp\/v2\/types\/drafts"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https:\/\/tastybeverageco.com\/raleigh\/wp-json\/wp\/v2\/media?parent=6957"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https:\/\/api.w.org\/{rel}",
+          "templated": true
+        }
+      ]
     }
   },
   {
@@ -189,23 +210,33 @@
       ]
     },
     "_links": {
-      "self": [{
-        "href": "https:\/\/tastybeverageco.com\/raleigh\/wp-json\/wp\/v2\/drafts-api\/6956"
-      }],
-      "collection": [{
-        "href": "https:\/\/tastybeverageco.com\/raleigh\/wp-json\/wp\/v2\/drafts-api"
-      }],
-      "about": [{
-        "href": "https:\/\/tastybeverageco.com\/raleigh\/wp-json\/wp\/v2\/types\/drafts"
-      }],
-      "wp:attachment": [{
-        "href": "https:\/\/tastybeverageco.com\/raleigh\/wp-json\/wp\/v2\/media?parent=6956"
-      }],
-      "curies": [{
-        "name": "wp",
-        "href": "https:\/\/api.w.org\/{rel}",
-        "templated": true
-      }]
+      "self": [
+        {
+          "href": "https:\/\/tastybeverageco.com\/raleigh\/wp-json\/wp\/v2\/drafts-api\/6956"
+        }
+      ],
+      "collection": [
+        {
+          "href": "https:\/\/tastybeverageco.com\/raleigh\/wp-json\/wp\/v2\/drafts-api"
+        }
+      ],
+      "about": [
+        {
+          "href": "https:\/\/tastybeverageco.com\/raleigh\/wp-json\/wp\/v2\/types\/drafts"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https:\/\/tastybeverageco.com\/raleigh\/wp-json\/wp\/v2\/media?parent=6956"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https:\/\/api.w.org\/{rel}",
+          "templated": true
+        }
+      ]
     }
   },
   {
@@ -261,23 +292,33 @@
       ]
     },
     "_links": {
-      "self": [{
-        "href": "https:\/\/tastybeverageco.com\/raleigh\/wp-json\/wp\/v2\/drafts-api\/6955"
-      }],
-      "collection": [{
-        "href": "https:\/\/tastybeverageco.com\/raleigh\/wp-json\/wp\/v2\/drafts-api"
-      }],
-      "about": [{
-        "href": "https:\/\/tastybeverageco.com\/raleigh\/wp-json\/wp\/v2\/types\/drafts"
-      }],
-      "wp:attachment": [{
-        "href": "https:\/\/tastybeverageco.com\/raleigh\/wp-json\/wp\/v2\/media?parent=6955"
-      }],
-      "curies": [{
-        "name": "wp",
-        "href": "https:\/\/api.w.org\/{rel}",
-        "templated": true
-      }]
+      "self": [
+        {
+          "href": "https:\/\/tastybeverageco.com\/raleigh\/wp-json\/wp\/v2\/drafts-api\/6955"
+        }
+      ],
+      "collection": [
+        {
+          "href": "https:\/\/tastybeverageco.com\/raleigh\/wp-json\/wp\/v2\/drafts-api"
+        }
+      ],
+      "about": [
+        {
+          "href": "https:\/\/tastybeverageco.com\/raleigh\/wp-json\/wp\/v2\/types\/drafts"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https:\/\/tastybeverageco.com\/raleigh\/wp-json\/wp\/v2\/media?parent=6955"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https:\/\/api.w.org\/{rel}",
+          "templated": true
+        }
+      ]
     }
   },
   {
@@ -333,23 +374,33 @@
       ]
     },
     "_links": {
-      "self": [{
-        "href": "https:\/\/tastybeverageco.com\/raleigh\/wp-json\/wp\/v2\/drafts-api\/6954"
-      }],
-      "collection": [{
-        "href": "https:\/\/tastybeverageco.com\/raleigh\/wp-json\/wp\/v2\/drafts-api"
-      }],
-      "about": [{
-        "href": "https:\/\/tastybeverageco.com\/raleigh\/wp-json\/wp\/v2\/types\/drafts"
-      }],
-      "wp:attachment": [{
-        "href": "https:\/\/tastybeverageco.com\/raleigh\/wp-json\/wp\/v2\/media?parent=6954"
-      }],
-      "curies": [{
-        "name": "wp",
-        "href": "https:\/\/api.w.org\/{rel}",
-        "templated": true
-      }]
+      "self": [
+        {
+          "href": "https:\/\/tastybeverageco.com\/raleigh\/wp-json\/wp\/v2\/drafts-api\/6954"
+        }
+      ],
+      "collection": [
+        {
+          "href": "https:\/\/tastybeverageco.com\/raleigh\/wp-json\/wp\/v2\/drafts-api"
+        }
+      ],
+      "about": [
+        {
+          "href": "https:\/\/tastybeverageco.com\/raleigh\/wp-json\/wp\/v2\/types\/drafts"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https:\/\/tastybeverageco.com\/raleigh\/wp-json\/wp\/v2\/media?parent=6954"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https:\/\/api.w.org\/{rel}",
+          "templated": true
+        }
+      ]
     }
   },
   {
@@ -405,23 +456,33 @@
       ]
     },
     "_links": {
-      "self": [{
-        "href": "https:\/\/tastybeverageco.com\/raleigh\/wp-json\/wp\/v2\/drafts-api\/6950"
-      }],
-      "collection": [{
-        "href": "https:\/\/tastybeverageco.com\/raleigh\/wp-json\/wp\/v2\/drafts-api"
-      }],
-      "about": [{
-        "href": "https:\/\/tastybeverageco.com\/raleigh\/wp-json\/wp\/v2\/types\/drafts"
-      }],
-      "wp:attachment": [{
-        "href": "https:\/\/tastybeverageco.com\/raleigh\/wp-json\/wp\/v2\/media?parent=6950"
-      }],
-      "curies": [{
-        "name": "wp",
-        "href": "https:\/\/api.w.org\/{rel}",
-        "templated": true
-      }]
+      "self": [
+        {
+          "href": "https:\/\/tastybeverageco.com\/raleigh\/wp-json\/wp\/v2\/drafts-api\/6950"
+        }
+      ],
+      "collection": [
+        {
+          "href": "https:\/\/tastybeverageco.com\/raleigh\/wp-json\/wp\/v2\/drafts-api"
+        }
+      ],
+      "about": [
+        {
+          "href": "https:\/\/tastybeverageco.com\/raleigh\/wp-json\/wp\/v2\/types\/drafts"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https:\/\/tastybeverageco.com\/raleigh\/wp-json\/wp\/v2\/media?parent=6950"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https:\/\/api.w.org\/{rel}",
+          "templated": true
+        }
+      ]
     }
   },
   {
@@ -477,23 +538,33 @@
       ]
     },
     "_links": {
-      "self": [{
-        "href": "https:\/\/tastybeverageco.com\/raleigh\/wp-json\/wp\/v2\/drafts-api\/6910"
-      }],
-      "collection": [{
-        "href": "https:\/\/tastybeverageco.com\/raleigh\/wp-json\/wp\/v2\/drafts-api"
-      }],
-      "about": [{
-        "href": "https:\/\/tastybeverageco.com\/raleigh\/wp-json\/wp\/v2\/types\/drafts"
-      }],
-      "wp:attachment": [{
-        "href": "https:\/\/tastybeverageco.com\/raleigh\/wp-json\/wp\/v2\/media?parent=6910"
-      }],
-      "curies": [{
-        "name": "wp",
-        "href": "https:\/\/api.w.org\/{rel}",
-        "templated": true
-      }]
+      "self": [
+        {
+          "href": "https:\/\/tastybeverageco.com\/raleigh\/wp-json\/wp\/v2\/drafts-api\/6910"
+        }
+      ],
+      "collection": [
+        {
+          "href": "https:\/\/tastybeverageco.com\/raleigh\/wp-json\/wp\/v2\/drafts-api"
+        }
+      ],
+      "about": [
+        {
+          "href": "https:\/\/tastybeverageco.com\/raleigh\/wp-json\/wp\/v2\/types\/drafts"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https:\/\/tastybeverageco.com\/raleigh\/wp-json\/wp\/v2\/media?parent=6910"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https:\/\/api.w.org\/{rel}",
+          "templated": true
+        }
+      ]
     }
   },
   {
@@ -549,23 +620,33 @@
       ]
     },
     "_links": {
-      "self": [{
-        "href": "https:\/\/tastybeverageco.com\/raleigh\/wp-json\/wp\/v2\/drafts-api\/6841"
-      }],
-      "collection": [{
-        "href": "https:\/\/tastybeverageco.com\/raleigh\/wp-json\/wp\/v2\/drafts-api"
-      }],
-      "about": [{
-        "href": "https:\/\/tastybeverageco.com\/raleigh\/wp-json\/wp\/v2\/types\/drafts"
-      }],
-      "wp:attachment": [{
-        "href": "https:\/\/tastybeverageco.com\/raleigh\/wp-json\/wp\/v2\/media?parent=6841"
-      }],
-      "curies": [{
-        "name": "wp",
-        "href": "https:\/\/api.w.org\/{rel}",
-        "templated": true
-      }]
+      "self": [
+        {
+          "href": "https:\/\/tastybeverageco.com\/raleigh\/wp-json\/wp\/v2\/drafts-api\/6841"
+        }
+      ],
+      "collection": [
+        {
+          "href": "https:\/\/tastybeverageco.com\/raleigh\/wp-json\/wp\/v2\/drafts-api"
+        }
+      ],
+      "about": [
+        {
+          "href": "https:\/\/tastybeverageco.com\/raleigh\/wp-json\/wp\/v2\/types\/drafts"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https:\/\/tastybeverageco.com\/raleigh\/wp-json\/wp\/v2\/media?parent=6841"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https:\/\/api.w.org\/{rel}",
+          "templated": true
+        }
+      ]
     }
   },
   {
@@ -624,23 +705,33 @@
       ]
     },
     "_links": {
-      "self": [{
-        "href": "https:\/\/tastybeverageco.com\/raleigh\/wp-json\/wp\/v2\/drafts-api\/6703"
-      }],
-      "collection": [{
-        "href": "https:\/\/tastybeverageco.com\/raleigh\/wp-json\/wp\/v2\/drafts-api"
-      }],
-      "about": [{
-        "href": "https:\/\/tastybeverageco.com\/raleigh\/wp-json\/wp\/v2\/types\/drafts"
-      }],
-      "wp:attachment": [{
-        "href": "https:\/\/tastybeverageco.com\/raleigh\/wp-json\/wp\/v2\/media?parent=6703"
-      }],
-      "curies": [{
-        "name": "wp",
-        "href": "https:\/\/api.w.org\/{rel}",
-        "templated": true
-      }]
+      "self": [
+        {
+          "href": "https:\/\/tastybeverageco.com\/raleigh\/wp-json\/wp\/v2\/drafts-api\/6703"
+        }
+      ],
+      "collection": [
+        {
+          "href": "https:\/\/tastybeverageco.com\/raleigh\/wp-json\/wp\/v2\/drafts-api"
+        }
+      ],
+      "about": [
+        {
+          "href": "https:\/\/tastybeverageco.com\/raleigh\/wp-json\/wp\/v2\/types\/drafts"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https:\/\/tastybeverageco.com\/raleigh\/wp-json\/wp\/v2\/media?parent=6703"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https:\/\/api.w.org\/{rel}",
+          "templated": true
+        }
+      ]
     }
   }
 ]

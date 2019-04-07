@@ -10,7 +10,7 @@ const content = {
   },
   stock: {
     cardTitle: 'New In-Stock',
-    speechIntro: 'Here are some new beers in stock. '
+    speechIntro: 'The new beers in stock are, '
   }
 };
 
@@ -34,19 +34,20 @@ class ResponseBuilder {
           this.handlerInput.responseBuilder.reprompt(content[items.name].reprompt);
         }
       }
-  
+
       if (this.attributes.previousIntent) {
         if (this.attributes.previousIntent != this.handlerInput.requestEnvelope.request.name &&
-            this.handlerInput.requestEnvelope.context.System.device.supportedInterfaces.Display) {
+          this.handlerInput.requestEnvelope.context.System.device.supportedInterfaces.Display) {
           this.handlerInput.responseBuilder.addDirective(_buildView(items));
         }
-      } else {
+      } else if (!this.attributes.previousIntent &&
+        this.handlerInput.requestEnvelope.context.System.device.supportedInterfaces.Display) {
         this.handlerInput.responseBuilder.addDirective(_buildView(items));
       }
-  
+
       this.attributes.previousIntent = (
-        this.handlerInput.requestEnvelope.request.intent ? 
-          this.handlerInput.requestEnvelope.request.intent.name : 
+        this.handlerInput.requestEnvelope.request.intent ?
+          this.handlerInput.requestEnvelope.request.intent.name :
           this.handlerInput.requestEnvelope.request.type);
       this.handlerInput.attributesManager.setSessionAttributes(this.attributes);
       resolve(this.handlerInput.responseBuilder.speak(speech).getResponse());
@@ -119,6 +120,7 @@ function _buildListSpeech(_this, items) {
       delete _this.attributes.index;
       delete _this.attributes.previousIntent;
     }
+    _this.handlerInput.responseBuilder.withShouldEndSession(false);
     resolve(speech);
   });
 }

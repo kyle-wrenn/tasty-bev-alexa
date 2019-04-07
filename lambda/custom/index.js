@@ -13,7 +13,7 @@ const LaunchRequestHandler = {
   async handle(handlerInput) {
     const builder = new ResponseBuilder(handlerInput);
     return await builder.buildOutput({ name: 'launch' }); 
-  },
+  }
 };
 
 const RestartHandler = {
@@ -63,6 +63,7 @@ const YesIntentHandler = {
   async handle(handlerInput) {
     let attributes = handlerInput.attributesManager.getSessionAttributes();
     if (attributes.previousIntent === 'DraftList') {
+      handlerInput.requestEnvelope.request.intent.name = 'DraftList';
       return DraftListHandler.handle(handlerInput);
     } else {
       return RestartHandler.handle(handlerInput);
@@ -86,12 +87,11 @@ const HelpIntentHandler = {
       handlerInput.requestEnvelope.request.intent.name === 'AMAZON.HelpIntent';
   },
   handle(handlerInput) {
-    const speechText = 'You can say hello to me!';
+    const speechText = 'I can tell you what\'s currently on draft or about the new beers in stock. What would you like to do?';
 
     return handlerInput.responseBuilder
       .speak(speechText)
-      .reprompt(speechText)
-      .withSimpleCard('Hello World', speechText)
+      .withShouldEndSession(false)
       .getResponse();
   },
 };
@@ -103,12 +103,11 @@ const CancelAndStopIntentHandler = {
         handlerInput.requestEnvelope.request.intent.name === 'AMAZON.StopIntent');
   },
   handle(handlerInput) {
-    const speechText = 'Goodbye!';
+    const speechText = 'Cheers!';
 
     return handlerInput.responseBuilder
       .withShouldEndSession(true)
       .speak(speechText)
-      .withSimpleCard('Hello World', speechText)
       .getResponse();
   },
 };
