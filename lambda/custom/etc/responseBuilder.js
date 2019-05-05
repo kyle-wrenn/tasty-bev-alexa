@@ -6,11 +6,13 @@ const content = {
   },
   drafts: {
     cardTitle: 'Draft List',
-    speechIntro: 'The beers currently on draft are: '
+    speechIntro: 'The beers currently on draft are: ',
+    listSize: 3
   },
   stock: {
     cardTitle: 'New In-Stock',
-    speechIntro: 'The new beers in stock are, '
+    speechIntro: 'The new beers in stock are, ',
+    listSize: 5
   }
 };
 
@@ -87,6 +89,16 @@ function _buildCard(items) {
   return { cardTitle: title, cardContent: output };
 }
 
+function _replaceAbbreviations(speech) {
+  speech = speech.replace(/\sIPA/gi, '<say-as interpret-as="spell-out">IPA</say-as>');
+  speech = speech.replace(/\sDIPA/gi, 'Double <say-as interpret-as="spell-out">IPA</say-as>');
+  speech = speech.replace(/\sTIPA/gi, 'Triple <say-as interpret-as="spell-out">IPA</say-as>');
+  speech = speech.replace(/\sESB/gi, '<say-as interpret-as="spell-out">ESB</say-as>');
+  speech = speech.replace(/\sIPL/gi, '<say-as interpret-as="spell-out">IPL</say-as>');
+  speech = speech.replace(/BBA/gi, 'Bourbon Barrel Aged');
+  return speech;
+}
+
 /**
    * Builds list output for speech response
    * @param {Object} items Array of draft items.
@@ -103,14 +115,15 @@ function _buildListSpeech(_this, items) {
       speech += content[items.name].speechIntro;
     }
 
-    for (let i = index; i < (index + 3); i++) {
+    for (let i = index; i < (index + content[items.name].listSize); i++) {
       if (i >= items.value.length) {
         break;
       }
       speech += items.value[i].title + ', ';
     }
     speech += '.';
-    _this.attributes.index = index + 3;
+    speech = _replaceAbbreviations(speech);
+    _this.attributes.index = index + content[items.name].listSize;
     if (_this.attributes.index < items.value.length - 1) {
       speech += 'Would you like to hear more?';
     } else {

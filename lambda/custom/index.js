@@ -155,10 +155,10 @@ const ErrorHandler = {
 const RequestInterceptor = {
   process(handlerInput) {
     let attributes = handlerInput.attributesManager.getSessionAttributes();
+    attributes.renderDisplay = true;
     if (handlerInput.requestEnvelope.request.intent) {
       if (handlerInput.requestEnvelope.request.intent.name !== 'AMAZON.YesIntent' && handlerInput.requestEnvelope.request.intent.name !== attributes.previousIntent) {
         attributes.index = 0;
-        attributes.renderDisplay = true;
       } else {
         attributes.renderDisplay = false;
       }
