@@ -167,25 +167,49 @@
                         },
                         {
                             "type": "Sequence",
-                            "grow": 1,
+                            "when": "${viewport.shape != 'round'}",
                             "height": "80vh",
-                            "scrollDirection": "vertical",
                             "paddingLeft": "@marginLeft",
                             "paddingRight": "@marginRight",
                             "data": "${listData}",
                             "numbered": true,
+                            "scrollDirection": "vertical",
+                            "grow": 1,
                             "items": [
                                 {
+                                    "abv": "${data.abv}",
                                     "beerName": "${data.name}",
                                     "brewery": "${data.brewery}",
-                                    "style": "${data.style}",
-                                    "abv": "${data.abv}",
-                                    "state": "${data.breweryState}",
-                                    "type": "VerticalListItem",
+                                    "image": "${data.image.sources[0].url}",
                                     "primaryText": "${data.name}",
                                     "secondaryText": "${data.style}",
+                                    "state": "${data.breweryState}",
+                                    "style": "${data.style}",
                                     "tertiaryText": "${data.brewery}",
-                                    "image": "${data.image.sources[0].url}"
+                                    "type": "VerticalListItem"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "Sequence",
+                            "when": "${viewport.shape == 'round'}",
+                            "height": "60vh",
+                            "paddingLeft": "@marginLeft",
+                            "paddingRight": "@marginRight",
+                            "data": "${listData}",
+                            "numbered": true,
+                            "item": [
+                                {
+                                    "abv": "${data.abv}",
+                                    "beerName": "${data.name}",
+                                    "brewery": "${data.brewery}",
+                                    "image": "${data.image.sources[0].url}",
+                                    "primaryText": "${data.name}",
+                                    "secondaryText": "${data.style}",
+                                    "state": "${data.breweryState}",
+                                    "style": "${data.style}",
+                                    "tertiaryText": "${data.brewery}",
+                                    "type": "VerticalListItem"
                                 }
                             ]
                         }
