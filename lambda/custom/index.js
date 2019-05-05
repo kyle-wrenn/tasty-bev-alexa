@@ -36,9 +36,12 @@ const DraftListHandler = {
       handlerInput.requestEnvelope.request.intent.name === 'DraftList';
   },
   async handle(handlerInput) {
+    console.log('INBOUND REQUEST: ', JSON.stringify(handlerInput.requestEnvelope));
     const drafts = await tasty.getDraftList();
     const builder = new ResponseBuilder(handlerInput);
-    return builder.buildOutput({ name: 'drafts', value: drafts });
+    const response = await builder.buildOutput({ name: 'drafts', value: drafts });
+    console.log(JSON.stringify(response));
+    return response;
   }
 
 };
@@ -51,7 +54,7 @@ const StockListHandler = {
   async handle(handlerInput) {
     const stock = await tasty.getNewStock();
     const builder = new ResponseBuilder(handlerInput);
-    return builder.buildOutput({ name: 'stock', value: stock });
+    return await builder.buildOutput({ name: 'stock', value: stock });
   }
 };
 
@@ -117,7 +120,7 @@ const SessionEndedRequestHandler = {
     return handlerInput.requestEnvelope.request.type === 'SessionEndedRequest';
   },
   handle(handlerInput) {
-    console.log(`Session ended with reason: ${handlerInput.requestEnvelope.request.reason}`);
+    console.log(`Session ended with reason: ${handlerInput.requestEnvelope.request.reason}: ${handlerInput.requestEnvelope.request.error.message}`);
 
     return handlerInput.responseBuilder.withShouldEndSession(true).getResponse();
   },

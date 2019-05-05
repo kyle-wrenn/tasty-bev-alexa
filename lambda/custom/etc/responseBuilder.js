@@ -39,10 +39,18 @@ class ResponseBuilder {
         if (this.attributes.previousIntent != this.handlerInput.requestEnvelope.request.name &&
           this.handlerInput.requestEnvelope.context.System.device.supportedInterfaces.Display) {
           this.handlerInput.responseBuilder.addDirective(_buildView(items));
+          if (content[items.name].cardTitle) {
+            this.handlerInput.responseBuilder.withSimpleCard(card.cardTitle, card.cardContent);
+          }
+          delete this.attributes.index;
         }
       } else if (!this.attributes.previousIntent &&
         this.handlerInput.requestEnvelope.context.System.device.supportedInterfaces.Display) {
         this.handlerInput.responseBuilder.addDirective(_buildView(items));
+        if (content[items.name].cardTitle) {
+          this.handlerInput.responseBuilder.withSimpleCard(card.cardTitle, card.cardContent);
+        }
+        delete this.attributes.index;
       }
 
       this.attributes.previousIntent = (
@@ -86,7 +94,7 @@ function _buildCard(items) {
     }
     output += '\n\n';
   });
-  return { title, output };
+  return { cardTitle: title, cardContent: output };
 }
 
 /**

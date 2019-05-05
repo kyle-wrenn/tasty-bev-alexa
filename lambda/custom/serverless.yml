@@ -1,16 +1,24 @@
-service: tasty-dev-alexa-lambda
+service: ask-custom-tasty-beverage
 
 provider:
   name: aws
-  runtime: nodejs8.11
+  runtime: nodejs8.10
  
 functions:
-  tasty-dev-alexa-lambda:
+  default:
     handler: handler.index
     events:
-      - alexaSkill
-      - http: POST /hello
+      - alexaSkill: amzn1.ask.skill.49851b4e-0a68-42d7-a0e5-978a3dc108d3
  
+
+package:
+  exclude:
+    - /*
+  include:
+    - index.js
+    - node_modules
+    - etc/*
+    - data/*
 # Add serverless-local-alexa-server to your plugins: 
 plugins:
   - serverless-local-alexa-server
