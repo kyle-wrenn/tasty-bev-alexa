@@ -50,7 +50,6 @@ class ResponseBuilder {
         if (content[items.name].cardTitle) {
           this.handlerInput.responseBuilder.withSimpleCard(card.cardTitle, card.cardContent);
         }
-        delete this.attributes.index;
       }
 
       this.attributes.previousIntent = (

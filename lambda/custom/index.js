@@ -36,8 +36,12 @@ const DraftListHandler = {
       handlerInput.requestEnvelope.request.intent.name === 'DraftList';
   },
   async handle(handlerInput) {
-    console.log('INBOUND REQUEST: ', JSON.stringify(handlerInput.requestEnvelope));
-    const drafts = await tasty.getDraftList();
+    let drafts;
+    if (handlerInput.requestEnvelope.session.previousIntent && handlerInput.requestEnvelope.session.previousIntent === 'DraftList') {
+      drafts = handlerInput.requestEnvelope.session.drafts;
+    } else {
+      drafts = await tasty.getDraftList();
+    }
     const builder = new ResponseBuilder(handlerInput);
     const response = await builder.buildOutput({ name: 'drafts', value: drafts });
     console.log(JSON.stringify(response));
