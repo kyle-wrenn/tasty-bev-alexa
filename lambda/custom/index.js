@@ -56,7 +56,12 @@ const StockListHandler = {
       handlerInput.requestEnvelope.request.intent.name === 'StockList';
   },
   async handle(handlerInput) {
-    const stock = await tasty.getNewStock();
+    let stock;
+    if (handlerInput.requestEnvelope.session.previousIntent && handlerInput.requestEnvelope.session.previousIntent === 'StockList') {
+      stock = handlerInput.requestEnvelope.session.stock;
+    } else {
+      stock = await tasty.getNewStock();
+    }
     const builder = new ResponseBuilder(handlerInput);
     return await builder.buildOutput({ name: 'stock', value: stock });
   }
@@ -72,6 +77,9 @@ const YesIntentHandler = {
     if (attributes.previousIntent === 'DraftList') {
       handlerInput.requestEnvelope.request.intent.name = 'DraftList';
       return DraftListHandler.handle(handlerInput);
+    } else if (attributes.previousIntent === 'StockList') {
+      handlerInput.requestEnvelope.request.intent.name = 'StockList';
+      return StockListHandler.handle(handlerInput);
     } else {
       return RestartHandler.handle(handlerInput);
     }
@@ -144,6 +152,21 @@ const ErrorHandler = {
   },
 };
 
+const RequestInterceptor = {
+  process(handlerInput) {
+    let attributes = handlerInput.attributesManager.getSessionAttributes();
+    if (handlerInput.requestEnvelope.request.intent) {
+      if (handlerInput.requestEnvelope.request.intent.name !== 'AMAZON.YesIntent' && handlerInput.requestEnvelope.request.intent.name !== attributes.previousIntent) {
+        attributes.index = 0;
+        attributes.renderDisplay = true;
+      } else {
+        attributes.renderDisplay = false;
+      }
+    }
+    handlerInput.attributesManager.setSessionAttributes(attributes);
+  }
+};
+
 let skill;
 
 if (ENV !== 'local') {
@@ -158,6 +181,7 @@ if (ENV !== 'local') {
       SessionEndedRequestHandler,
       HelpIntentHandler
     )
+    .addRequestInterceptors(RequestInterceptor)
     .addErrorHandlers(ErrorHandler)
     .lambda();
 } else {
@@ -174,6 +198,7 @@ if (ENV !== 'local') {
           SessionEndedRequestHandler,
           HelpIntentHandler
         )
+        .addRequestInterceptors(RequestInterceptor)
         .addErrorHandlers(ErrorHandler)
         .create();
     }

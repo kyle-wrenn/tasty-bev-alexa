@@ -35,17 +35,8 @@ class ResponseBuilder {
         }
       }
 
-      if (this.attributes.previousIntent) {
-        if (this.attributes.previousIntent != this.handlerInput.requestEnvelope.request.name &&
+      if (this.attributes.renderDisplay == true &&
           this.handlerInput.requestEnvelope.context.System.device.supportedInterfaces.Display) {
-          this.handlerInput.responseBuilder.addDirective(_buildView(items));
-          if (content[items.name].cardTitle) {
-            this.handlerInput.responseBuilder.withSimpleCard(card.cardTitle, card.cardContent);
-          }
-          delete this.attributes.index;
-        }
-      } else if (!this.attributes.previousIntent &&
-        this.handlerInput.requestEnvelope.context.System.device.supportedInterfaces.Display) {
         this.handlerInput.responseBuilder.addDirective(_buildView(items));
         if (content[items.name].cardTitle) {
           this.handlerInput.responseBuilder.withSimpleCard(card.cardTitle, card.cardContent);
