@@ -70,7 +70,7 @@ const StockListHandler = {
 const YesIntentHandler = {
   canHandle(handlerInput) {
     return handlerInput.requestEnvelope.request.type === 'IntentRequest' &&
-      handlerInput.requestEnvelope.request.intent.name === 'AMAZON.YesIntent';
+      (handlerInput.requestEnvelope.request.intent.name === 'AMAZON.YesIntent' || handlerInput.requestEnvelope.request.intent.name === 'AMAZON.NextIntent');
   },
   async handle(handlerInput) {
     let attributes = handlerInput.attributesManager.getSessionAttributes();
