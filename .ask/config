@@ -13,9 +13,9 @@
             "arn": "arn:aws:lambda:us-east-1:594440616035:function:ask-custom-tasty-beverage-default",
             "awsRegion": "us-east-1",
             "codeUri": "lambda/custom",
-            "functionName": "ask-custom-tasty-beverage-default",
+            "functionName": "ask-custom-tasty-beverage",
             "handler": "index.handler",
-            "revisionId": "c773dedb-02d9-4d51-9f98-d1898b8e3f81",
+            "revisionId": "385cf2d4-7042-4cc4-a475-17bb85f1c1ee",
             "runtime": "nodejs8.10"
           }
         ],
