@@ -5,6 +5,28 @@ const Alexa = require('ask-sdk-core');
 const tasty = require('./etc/tastyData');
 const ENV = process.env.ENVIRONMENT || 'AWS';
 const ResponseBuilder = require('./etc/responseBuilder').ResponseBuilder;
+const User = require('./etc/user').User;
+
+const _checkUser = async (handlerInput) => {
+  const location = handlerInput.requestEnvelope.request.intent.slots.Location.value;
+  const user = new User(handlerInput.requestEnvelope.session.user.userId);
+  if (location) {
+    try {
+      await user.setLocation(location);
+      return location;
+    } catch (error) {
+      console.error(error);
+      return location;
+    }
+  } else {
+    try {
+      return await user.getLocationPref();
+    } catch (err) {
+      console.error(err);
+      return;
+    }
+  }
+};
 
 const LaunchRequestHandler = {
   canHandle(handlerInput) {
@@ -36,13 +58,20 @@ const DraftListHandler = {
       handlerInput.requestEnvelope.request.intent.name === 'DraftList';
   },
   async handle(handlerInput) {
+    let locationPref = _checkUser(handlerInput);
+    if (!locationPref) {
+      return handlerInput.responseBuilder
+        .addElicitSlotDirective('Location')
+        .speak('For Asheville or Raleigh?')
+        .getResponse(); 
+    }
+    const builder = new ResponseBuilder(handlerInput);
     let drafts;
     if (handlerInput.requestEnvelope.session.previousIntent && handlerInput.requestEnvelope.session.previousIntent === 'DraftList') {
       drafts = handlerInput.requestEnvelope.session.drafts;
     } else {
       drafts = await tasty.getDraftList();
     }
-    const builder = new ResponseBuilder(handlerInput);
     const response = await builder.buildOutput({ name: 'drafts', value: drafts });
     console.log(JSON.stringify(response));
     return response;
@@ -165,6 +194,17 @@ const RequestInterceptor = {
     }
     handlerInput.attributesManager.setSessionAttributes(attributes);
   }
+}; 
+
+const testDynamo = {
+  canHandle(handlerInput) {
+    return handlerInput.requestEnvelope.request.intent.name === 'TestDynamo';
+  },
+  handle(handlerInput, error) {
+    const user = new User(handlerInput.requestEnvelope.session.user.userId);
+    console.log(user.getLocationPref());
+    return handlerInput.responseBuilder.speak('Got user from dynamo');
+  }
 };
 
 let skill;
@@ -196,7 +236,8 @@ if (ENV !== 'local') {
           NoIntentHandler,
           CancelAndStopIntentHandler,
           SessionEndedRequestHandler,
-          HelpIntentHandler
+          HelpIntentHandler,
+          testDynamo
         )
         .addRequestInterceptors(RequestInterceptor)
         .addErrorHandlers(ErrorHandler)

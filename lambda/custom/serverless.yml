@@ -6,10 +6,44 @@ provider:
  
 functions:
   default:
-    handler: handler.index
+    #name: ask-custom-tasty-beverage-${self:provider.stage}
+    description: Handler for the Tasty Beverage Alexa Skill
+    handler: index.handler
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - dynamodb:DescribeTable
+          - dynamodb:Query
+          - dynamodb:Scan
+          - dynamodb:GetItem
+          - dynamodb:PutItem
+          - dynamodb:UpdateItem
+          - dynamodb:DeleteItem
+        Resource: arn:aws:dynamodb:us-east-1:594440616035:table/userTable-${self:provider.stage}
+    environment:
+      RALEIGH_DRAFTS: https://tastybeverageco.com/raleigh/wp-json/wp/v2/drafts-api
+      RALEIGH_PACKAGED: https://tastybeverageco.com/raleigh/wp-json/wp/v2/beer-api
+      ASHEVILLE_DRAFTS: https://tastybeverageco.com/asheville/wp-json/wp/v2/drafts-api
+      ASHEVILLE_PACKAGED: https://tastybeverageco.com/asheville/wp-json/wp/v2/beer-api
     events:
       - alexaSkill: amzn1.ask.skill.49851b4e-0a68-42d7-a0e5-978a3dc108d3
  
+resources:
+  Resources:
+    userTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: userTable-${self:provider.stage}
+        AttributeDefinitions:
+          - AttributeName: userId
+            AttributeType: S
+        KeySchema:
+          - AttributeName: userId
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+
 
 package:
   exclude:
