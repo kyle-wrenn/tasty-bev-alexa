@@ -3,10 +3,10 @@ service: ask-custom-tasty-beverage
 provider:
   name: aws
   runtime: nodejs8.10
+  stage: ${opt:stage, 'dev'}
  
 functions:
   default:
-    #name: ask-custom-tasty-beverage-${self:provider.stage}
     description: Handler for the Tasty Beverage Alexa Skill
     handler: index.handler
     iamRoleStatements:
@@ -21,12 +21,13 @@ functions:
           - dynamodb:DeleteItem
         Resource: arn:aws:dynamodb:us-east-1:594440616035:table/userTable-${self:provider.stage}
     environment:
-      RALEIGH_DRAFTS: https://tastybeverageco.com/raleigh/wp-json/wp/v2/drafts-api
-      RALEIGH_PACKAGED: https://tastybeverageco.com/raleigh/wp-json/wp/v2/beer-api
-      ASHEVILLE_DRAFTS: https://tastybeverageco.com/asheville/wp-json/wp/v2/drafts-api
-      ASHEVILLE_PACKAGED: https://tastybeverageco.com/asheville/wp-json/wp/v2/beer-api
+      STAGE: ${self:provider.stage}
     events:
       - alexaSkill: amzn1.ask.skill.49851b4e-0a68-42d7-a0e5-978a3dc108d3
+      - http:
+          path: alexa/handle
+          method: post
+          private: true
  
 resources:
   Resources:

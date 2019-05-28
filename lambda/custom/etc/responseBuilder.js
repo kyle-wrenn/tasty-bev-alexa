@@ -59,6 +59,9 @@ class ResponseBuilder {
 function _buildView(items) {
   let template = require(__dirname + '/../data/' + items.name + '.json');
   let data = require(__dirname + '/../data/' + items.name + '-source.json');
+  if (items.name != 'launch') {
+    data.listTemplate1Metadata.title = 'Tasty Beverage - ' + items.location;
+  }
   if (Array.isArray(items.value)) {
     data.listTemplate1ListData.listPage.listItems = items.value;
   }
@@ -96,6 +99,8 @@ function _replaceAbbreviations(speech) {
   speech = speech.replace(/\sESB/gi, '<say-as interpret-as="spell-out">ESB</say-as>');
   speech = speech.replace(/\sIPL/gi, '<say-as interpret-as="spell-out">IPL</say-as>');
   speech = speech.replace(/BBA/gi, 'Bourbon Barrel Aged');
+  speech = speech.replace(/BA/gi, 'Barrel Aged');
+  speech = speech.replace(/&#038;/g, 'and');
   return speech;
 }
 

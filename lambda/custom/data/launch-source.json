@@ -21,7 +21,7 @@
                 }
             ]
         },
-        "title": "Tasty Beverage - Raleigh",
+        "title": "Tasty Beverage",
         "image": {
             "contentDescription": null,
             "smallSourceUrl": null,
@@ -44,7 +44,7 @@
         "textContent": {
             "headerTitle": {
                 "type": "PlainText",
-                "text": "Tasty Beverage - Raleigh"
+                "text": "Tasty Beverage"
             },
             "title1": {
                 "type": "PlainText",

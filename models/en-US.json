@@ -1,7 +1,7 @@
 {
   "interactionModel": {
     "languageModel": {
-      "invocationName": "tasty",
+      "invocationName": "tasty beverage",
       "intents": [
         {
           "name": "AMAZON.CancelIntent",
@@ -17,26 +17,199 @@
         },
         {
           "name": "DraftList",
+          "slots": [
+            {
+              "name": "Location",
+              "type": "STORE"
+            }
+          ],
           "samples": [
+            "draft list for {Location}",
+            "on tap at {Location}",
+            "draft list in {Location}",
+            "beers are on draft at {Location}",
+            "crispy boys are on tap",
+            "pouring",
+            "flowing",
+            "on tap",
+            "tap list",
             "draft list",
-            "whats on draft",
+            "what's on draft",
             "drafts",
             "beers on draft"
           ]
         },
         {
           "name": "StockList",
+          "slots": [
+            {
+              "name": "Location",
+              "type": "STORE"
+            }
+          ],
           "samples": [
+            "new deliveries in {Location}",
+            "what's new in {Location}",
+            "stock at {Location}",
+            "new beer at {Location}",
+            "new in stock at {Location}",
+            "new deliveries",
+            "what's new in stock",
             "whats new",
             "stock",
             "stock list",
-            "whats in stock",
+            "what's in stock",
             "new arrivals",
             "new beers",
             "new beer in stock"
           ]
+        },
+        {
+          "name": "AMAZON.NavigateHomeIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.MoreIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.NavigateSettingsIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.NextIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.PageUpIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.PageDownIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.PreviousIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.ScrollRightIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.ScrollDownIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.ScrollLeftIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.ScrollUpIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.StartOverIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.YesIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.NoIntent",
+          "samples": []
+        }
+      ],
+      "types": [
+        {
+          "values": [
+            {
+              "name": {
+                "value": "Asheville",
+                "synonyms": [
+                  "asheville north carolina"
+                ]
+              }
+            },
+            {
+              "name": {
+                "value": "Raleigh",
+                "synonyms": [
+                  "raleigh north carolina"
+                ]
+              }
+            }
+          ],
+          "name": "STORE"
         }
       ]
-    }
-  }
+    },
+    "dialog": {
+      "intents": [
+        {
+          "name": "DraftList",
+          "confirmationRequired": false,
+          "prompts": {},
+          "slots": [
+            {
+              "name": "Location",
+              "type": "STORE",
+              "elicitationRequired": false,
+              "confirmationRequired": false,
+              "prompts": {},
+              "validations": [
+                {
+                  "type": "hasEntityResolutionMatch",
+                  "prompt": "Slot.Validation.778891834934.66799807419.990328802446"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "StockList",
+          "confirmationRequired": false,
+          "prompts": {},
+          "slots": [
+            {
+              "name": "Location",
+              "type": "STORE",
+              "elicitationRequired": false,
+              "confirmationRequired": false,
+              "prompts": {},
+              "validations": [
+                {
+                  "type": "hasEntityResolutionMatch",
+                  "prompt": "Slot.Validation.1198775248032.949084686934.996517426562"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "delegationStrategy": "ALWAYS"
+    },
+    "prompts": [
+      {
+        "id": "Slot.Validation.778891834934.66799807419.990328802446",
+        "variations": [
+          {
+            "type": "PlainText",
+            "value": "Please choose either Raleigh or Asheville. Which store would you like?"
+          }
+        ]
+      },
+      {
+        "id": "Slot.Validation.1198775248032.949084686934.996517426562",
+        "variations": [
+          {
+            "type": "PlainText",
+            "value": "Please choose either Raleigh or Asheville. Which store would you like?"
+          }
+        ]
+      }
+    ]
+  },
+  "version": "16"
 }

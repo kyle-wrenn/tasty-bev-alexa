@@ -15,7 +15,7 @@ class User {
 
   getLocationPref() {
     const params = {
-      TableName: 'userTable-dev',
+      TableName: `userTable-${process.env.STAGE}`,
       Key: {
         userId: {
           S: this.userId
@@ -25,10 +25,14 @@ class User {
     return new Promise(resolve => {
       this.dynamo.getItem(params, (err, data) => {
         if (err) {
-          console.debug('Issue finding location preference');
+          console.info('Issue finding location preference:', err);
           resolve();
         } else {
-          resolve(data.Item.location);
+          if (data.Item) {
+            resolve(data.Item.location.S);
+          } else {
+            resolve();
+          }
         }
       });
     });
@@ -36,7 +40,7 @@ class User {
 
   setLocation(location) {
     let params = {
-      TableName: 'userTable-dev',
+      TableName: `userTable-${process.env.STAGE}`,
       Item: {
         userId: {
           S: this.userId
@@ -51,8 +55,9 @@ class User {
         if (err) {
           reject(err, '\nFailed to set location');
         } else {
+          console.log(data);
           console.debug('Set location', location, 'for user', this.userId);
-          resolve();
+          resolve(location);
         }
       });
     });

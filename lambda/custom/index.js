@@ -8,7 +8,12 @@ const ResponseBuilder = require('./etc/responseBuilder').ResponseBuilder;
 const User = require('./etc/user').User;
 
 const _checkUser = async (handlerInput) => {
-  const location = handlerInput.requestEnvelope.request.intent.slots.Location.value;
+  let location;
+  if (handlerInput.requestEnvelope.request.intent.slots) {
+    if (handlerInput.requestEnvelope.request.intent.slots.Location) {
+      location = handlerInput.requestEnvelope.request.intent.slots.Location.value;
+    }
+  }
   const user = new User(handlerInput.requestEnvelope.session.user.userId);
   if (location) {
     try {
@@ -58,21 +63,29 @@ const DraftListHandler = {
       handlerInput.requestEnvelope.request.intent.name === 'DraftList';
   },
   async handle(handlerInput) {
-    let locationPref = _checkUser(handlerInput);
+    let locationPref = await _checkUser(handlerInput);
     if (!locationPref) {
       return handlerInput.responseBuilder
         .addElicitSlotDirective('Location')
         .speak('For Asheville or Raleigh?')
         .getResponse(); 
     }
+    if (handlerInput.requestEnvelope.request.intent.slots) {
+      if (handlerInput.requestEnvelope.request.intent.slots.Location) {
+        let attributes = handlerInput.attributesManager.getSessionAttributes();
+        attributes.renderDisplay = true;
+        handlerInput.attributesManager.setSessionAttributes(attributes);
+      }
+    }
+
     const builder = new ResponseBuilder(handlerInput);
     let drafts;
     if (handlerInput.requestEnvelope.session.previousIntent && handlerInput.requestEnvelope.session.previousIntent === 'DraftList') {
       drafts = handlerInput.requestEnvelope.session.drafts;
     } else {
-      drafts = await tasty.getDraftList();
+      drafts = await tasty.getDraftList(locationPref);
     }
-    const response = await builder.buildOutput({ name: 'drafts', value: drafts });
+    const response = await builder.buildOutput({ name: 'drafts', value: drafts, location: locationPref });
     console.log(JSON.stringify(response));
     return response;
   }
@@ -85,14 +98,29 @@ const StockListHandler = {
       handlerInput.requestEnvelope.request.intent.name === 'StockList';
   },
   async handle(handlerInput) {
+    let locationPref = await _checkUser(handlerInput);
+    if (!locationPref) {
+      return handlerInput.responseBuilder
+        .addElicitSlotDirective('Location')
+        .speak('For Asheville or Raleigh?')
+        .getResponse(); 
+    }
+    if (handlerInput.requestEnvelope.request.intent.slots) {
+      if (handlerInput.requestEnvelope.request.intent.slots.Location) {
+        let attributes = handlerInput.attributesManager.getSessionAttributes();
+        attributes.renderDisplay = true;
+        handlerInput.attributesManager.setSessionAttributes(attributes);
+      }
+    }
+
     let stock;
     if (handlerInput.requestEnvelope.session.previousIntent && handlerInput.requestEnvelope.session.previousIntent === 'StockList') {
       stock = handlerInput.requestEnvelope.session.stock;
     } else {
-      stock = await tasty.getNewStock();
+      stock = await tasty.getNewStock(locationPref);
     }
     const builder = new ResponseBuilder(handlerInput);
-    return await builder.buildOutput({ name: 'stock', value: stock });
+    return await builder.buildOutput({ name: 'stock', value: stock, location: locationPref });
   }
 };
 
@@ -196,17 +224,6 @@ const RequestInterceptor = {
   }
 }; 
 
-const testDynamo = {
-  canHandle(handlerInput) {
-    return handlerInput.requestEnvelope.request.intent.name === 'TestDynamo';
-  },
-  handle(handlerInput, error) {
-    const user = new User(handlerInput.requestEnvelope.session.user.userId);
-    console.log(user.getLocationPref());
-    return handlerInput.responseBuilder.speak('Got user from dynamo');
-  }
-};
-
 let skill;
 
 if (ENV !== 'local') {
@@ -236,8 +253,7 @@ if (ENV !== 'local') {
           NoIntentHandler,
           CancelAndStopIntentHandler,
           SessionEndedRequestHandler,
-          HelpIntentHandler,
-          testDynamo
+          HelpIntentHandler
         )
         .addRequestInterceptors(RequestInterceptor)
         .addErrorHandlers(ErrorHandler)
