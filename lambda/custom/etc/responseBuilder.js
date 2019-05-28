@@ -75,7 +75,7 @@ function _buildView(items) {
 
 function _buildCard(items) {
   let output = '';
-  let title = content[items.name].cardTitle;
+  let title = content[items.name].cardTitle + ' - ' + items.location;
   items.value.forEach((value, i) => {
     output += i + 1 + ': ' + value.brewery + ' - ' + value.name + '\n';
     if (value.abv !== 'N/A') {

@@ -236,7 +236,8 @@ if (ENV !== 'local') {
       NoIntentHandler,
       CancelAndStopIntentHandler,
       SessionEndedRequestHandler,
-      HelpIntentHandler
+      HelpIntentHandler,
+      RestartHandler
     )
     .addRequestInterceptors(RequestInterceptor)
     .addErrorHandlers(ErrorHandler)
@@ -253,7 +254,8 @@ if (ENV !== 'local') {
           NoIntentHandler,
           CancelAndStopIntentHandler,
           SessionEndedRequestHandler,
-          HelpIntentHandler
+          HelpIntentHandler,
+          RestartHandler
         )
         .addRequestInterceptors(RequestInterceptor)
         .addErrorHandlers(ErrorHandler)
