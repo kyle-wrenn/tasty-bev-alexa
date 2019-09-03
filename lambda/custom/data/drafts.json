@@ -183,7 +183,7 @@
                                     "image": "${data.image.sources[0].url}",
                                     "primaryText": "${data.name}",
                                     "secondaryText": "${data.style}",
-                                    "state": "${data.breweryState}",
+                                    "state": "${data.breweryCity}",
                                     "style": "${data.style}",
                                     "tertiaryText": "${data.brewery}",
                                     "type": "VerticalListItem"
@@ -206,7 +206,7 @@
                                     "image": "${data.image.sources[0].url}",
                                     "primaryText": "${data.name}",
                                     "secondaryText": "${data.style}",
-                                    "state": "${data.breweryState}",
+                                    "state": "${data.breweryCity}",
                                     "style": "${data.style}",
                                     "tertiaryText": "${data.brewery}",
                                     "type": "VerticalListItem"

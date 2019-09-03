@@ -86,7 +86,7 @@ const DraftListHandler = {
       drafts = await tasty.getDraftList(locationPref);
     }
     const response = await builder.buildOutput({ name: 'drafts', value: drafts, location: locationPref });
-    console.log(JSON.stringify(response));
+    console.log('Draft Output: ', JSON.stringify(response));
     return response;
   }
 
@@ -120,7 +120,9 @@ const StockListHandler = {
       stock = await tasty.getNewStock(locationPref);
     }
     const builder = new ResponseBuilder(handlerInput);
-    return await builder.buildOutput({ name: 'stock', value: stock, location: locationPref });
+    const response = await builder.buildOutput({ name: 'stock', value: stock, location: locationPref });
+    console.log('Stock Response: ', JSON.stringify(response));
+    return response;
   }
 };
 
