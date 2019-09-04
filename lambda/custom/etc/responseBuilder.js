@@ -93,13 +93,14 @@ function _buildCard(items) {
 }
 
 function _replaceAbbreviations(speech) {
-  speech = speech.replace(/\sIPA/gi, '<say-as interpret-as="spell-out">IPA</say-as>');
-  speech = speech.replace(/\sDIPA/gi, 'Double <say-as interpret-as="spell-out">IPA</say-as>');
-  speech = speech.replace(/\sTIPA/gi, 'Triple <say-as interpret-as="spell-out">IPA</say-as>');
-  speech = speech.replace(/\sESB/gi, '<say-as interpret-as="spell-out">ESB</say-as>');
-  speech = speech.replace(/\sIPL/gi, '<say-as interpret-as="spell-out">IPL</say-as>');
-  speech = speech.replace(/BBA/gi, 'Bourbon Barrel Aged');
-  speech = speech.replace(/BA/gi, 'Barrel Aged');
+  speech = speech.replace(/\sIPA/g, '<say-as interpret-as="spell-out">IPA</say-as>');
+  speech = speech.replace(/\sDIPA/g, 'Double <say-as interpret-as="spell-out">IPA</say-as>');
+  speech = speech.replace(/\sTIPA/g, 'Triple <say-as interpret-as="spell-out">IPA</say-as>');
+  speech = speech.replace(/\sESB/g, '<say-as interpret-as="spell-out">ESB</say-as>');
+  speech = speech.replace(/\sIPL/g, '<say-as interpret-as="spell-out">IPL</say-as>');
+  speech = speech.replace(/BBA/g, 'Bourbon Barrel Aged');
+  speech = speech.replace(/BA/g, 'Barrel Aged');
+  speech = speech.replace(/&/g, 'and');
   speech = speech.replace(/&#038;/g, 'and');
   return speech;
 }
