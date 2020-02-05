@@ -1,8 +1,9 @@
+app: ask-custom-tasty-beverage-app
 service: ask-custom-tasty-beverage
 
 provider:
   name: aws
-  runtime: nodejs8.10
+  runtime: nodejs12.x
   stage: ${opt:stage, 'dev'}
  
 functions:
@@ -22,6 +23,9 @@ functions:
         Resource: arn:aws:dynamodb:us-east-1:594440616035:table/userTable-${self:provider.stage}
     environment:
       STAGE: ${self:provider.stage}
+      EMAIL: johnny@tastybeverageco.com
+      TOKEN: 1JPqRuLgXazvyHHxxEPF
+      UNTAPPD_BASE_URL: https://business.untappd.com/api/v1
     events:
       - alexaSkill: amzn1.ask.skill.49851b4e-0a68-42d7-a0e5-978a3dc108d3
       - http:

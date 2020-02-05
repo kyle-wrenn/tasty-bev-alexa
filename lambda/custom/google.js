@@ -33,7 +33,7 @@ const _checkUser = async (handlerInput) => {
 const app = dialogflow();
 
 app.intent('StockList', async conv => {
-  const locationPref = await _checkUser(conv.user.userId);
+  const locationPref = await _checkUser(conv.getUser().userId);
   if (!locationPref) {
     conv.ask('For Asheville or Raleigh?');
   } else {
@@ -42,7 +42,7 @@ app.intent('StockList', async conv => {
   }
 });
 
-app.intent('DraftList', conv => {
+app.intent('DraftList', async conv => {
 
 });
 
