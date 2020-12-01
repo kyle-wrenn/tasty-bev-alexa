@@ -13,13 +13,17 @@ const content = {
     cardTitle: 'New In-Stock',
     speechIntro: 'The new beers in stock are, ',
     listSize: 5
+  },
+  noItems: {
+    speech: 'There currently isn\'t anything available. Please check back later.'
   }
 };
 
 class ResponseBuilder {
-  constructor(handlerInput) {
+  constructor(handlerInput, renderDisplay = true) {
     this.handlerInput = handlerInput;
     this.attributes = handlerInput.attributesManager.getSessionAttributes();
+    this.attributes.renderDisplay = renderDisplay;
   }
 
   buildOutput(items) {

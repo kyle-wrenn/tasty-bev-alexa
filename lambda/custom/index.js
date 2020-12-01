@@ -5,33 +5,7 @@ const Alexa = require('ask-sdk-core');
 const tasty = require('./etc/tastyData');
 const ENV = process.env.ENVIRONMENT || 'AWS';
 const ResponseBuilder = require('./etc/responseBuilder').ResponseBuilder;
-const User = require('./etc/user').User;
-
-const _checkUser = async (handlerInput) => {
-  let location;
-  if (handlerInput.requestEnvelope.request.intent.slots) {
-    if (handlerInput.requestEnvelope.request.intent.slots.Location) {
-      location = handlerInput.requestEnvelope.request.intent.slots.Location.value;
-    }
-  }
-  const user = new User(handlerInput.requestEnvelope.session.user.userId);
-  if (location) {
-    try {
-      await user.setLocation(location);
-      return location;
-    } catch (error) {
-      console.error(error);
-      return location;
-    }
-  } else {
-    try {
-      return await user.getLocationPref();
-    } catch (err) {
-      console.error(err);
-      return;
-    }
-  }
-};
+const location = 'Raleigh';
 
 const LaunchRequestHandler = {
   canHandle(handlerInput) {
@@ -63,33 +37,12 @@ const DraftListHandler = {
       handlerInput.requestEnvelope.request.intent.name === 'DraftList';
   },
   async handle(handlerInput) {
-    let locationPref = await _checkUser(handlerInput);
-    if (!locationPref) {
-      return handlerInput.responseBuilder
-        .addElicitSlotDirective('Location')
-        .speak('For Asheville or Raleigh?')
-        .getResponse(); 
-    }
-    if (handlerInput.requestEnvelope.request.intent.slots) {
-      if (handlerInput.requestEnvelope.request.intent.slots.Location) {
-        let attributes = handlerInput.attributesManager.getSessionAttributes();
-        attributes.renderDisplay = true;
-        handlerInput.attributesManager.setSessionAttributes(attributes);
-      }
-    }
-
-    const builder = new ResponseBuilder(handlerInput);
-    let drafts;
-    if (handlerInput.requestEnvelope.session.previousIntent && handlerInput.requestEnvelope.session.previousIntent === 'DraftList') {
-      drafts = handlerInput.requestEnvelope.session.drafts;
-    } else {
-      drafts = await tasty.getDraftList(locationPref);
-    }
-    const response = await builder.buildOutput({ name: 'drafts', value: drafts, location: locationPref });
-    console.log('Draft Output: ', JSON.stringify(response));
-    return response;
+    const speech = 'Do to COVID-19 and for the safety of our employees, we are only selling beer to-go.';
+    return handlerInput.responseBuilder
+      .withShouldEndSession(true)
+      .speak(speech)
+      .getResponse();
   }
-
 };
 
 const StockListHandler = {
@@ -98,30 +51,22 @@ const StockListHandler = {
       handlerInput.requestEnvelope.request.intent.name === 'StockList';
   },
   async handle(handlerInput) {
-    let locationPref = await _checkUser(handlerInput);
-    if (!locationPref) {
-      return handlerInput.responseBuilder
-        .addElicitSlotDirective('Location')
-        .speak('For Asheville or Raleigh?')
-        .getResponse(); 
-    }
-    if (handlerInput.requestEnvelope.request.intent.slots) {
-      if (handlerInput.requestEnvelope.request.intent.slots.Location) {
-        let attributes = handlerInput.attributesManager.getSessionAttributes();
-        attributes.renderDisplay = true;
-        handlerInput.attributesManager.setSessionAttributes(attributes);
-      }
-    }
-
     let stock;
+    let response;
+    
     if (handlerInput.requestEnvelope.session.previousIntent && handlerInput.requestEnvelope.session.previousIntent === 'StockList') {
       stock = handlerInput.requestEnvelope.session.stock;
     } else {
-      stock = await tasty.getNewStock(locationPref);
+      stock = await tasty.getNewStock();
     }
-    const builder = new ResponseBuilder(handlerInput);
-    const response = await builder.buildOutput({ name: 'stock', value: stock, location: locationPref });
-    console.log('Stock Response: ', JSON.stringify(response));
+    if (stock.length > 0) {
+      const builder = new ResponseBuilder(handlerInput);
+      response = await builder.buildOutput({ name: 'stock', value: stock, location: location });
+    } else {
+      const builder = new ResponseBuilder(handlerInput, false);
+      response = await builder.buildOutput({ name: 'noItems' });
+      console.log('Stock Output: No stock available');
+    }
     return response;
   }
 };

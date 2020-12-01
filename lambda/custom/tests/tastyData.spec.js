@@ -20,7 +20,6 @@ describe('Tasty Beverage Data', () => {
       stub.restore();
     });
 
-
     it('Should return object', async () => {
       const drafts = await tastyData.getDraftList();
       expect(typeof drafts).to.be.eq('object');
@@ -29,11 +28,6 @@ describe('Tasty Beverage Data', () => {
     it('should return list of ten drafts', async () => {
       const drafts = await tastyData.getDraftList();
       expect(drafts.length).to.be.eq(9);
-    });
-
-    it('Should have title', async () => {
-      const drafts = await tastyData.getDraftList();
-      expect(drafts[0].title).to.be.eq('Fonta Flora Brewery Nebo Pilsner');
     });
   });
 
@@ -54,7 +48,7 @@ describe('Tasty Beverage Data', () => {
     });
 
     it('should return list of fifteen new stock', () => {
-      expect(stock.length).to.be.eq(10);
+      expect(stock.length).to.be.eq(14);
     });
   });
 });

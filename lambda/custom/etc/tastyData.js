@@ -1,7 +1,7 @@
 'use strict';
 
 const request = require('request');
-const auth = new Buffer(process.env.EMAIL + ':' + process.env.TOKEN).toString('base64');
+const auth = Buffer.from(process.env.EMAIL + ':' + process.env.TOKEN).toString('base64');
 const locations = {
   Raleigh: {
     id: 26205,
@@ -30,9 +30,9 @@ class Beer {
     this.breweryCity = beer.brewery_location;
   }
 
-  static getDraftList(location) {
+  static getDraftList() {
     const options = {
-      url: `${process.env.UNTAPPD_BASE_URL}/menus/${locations[location].menu.draft}?full=true`,
+      url: `${process.env.UNTAPPD_BASE_URL}/menus/${locations['Raleigh'].menu.draft}?full=true`,
       headers: {
         Authorization: 'Basic ' + auth
       }
@@ -48,15 +48,16 @@ class Beer {
             const item = new Beer(draft);
             drafts.push(item);
           });
+          console.log(`Successfully retrieved draft list of ${drafts.length} beers`);
           resolve(drafts);
         }
       });
     });
   }
 
-  static getNewStock(location) {
+  static getNewStock() {
     const options = {
-      url: `${process.env.UNTAPPD_BASE_URL}/menus/${locations[location].menu.packaged}?full=true`,
+      url: `${process.env.UNTAPPD_BASE_URL}/menus/${locations['Raleigh'].menu.packaged}?full=true`,
       headers: {
         Authorization: 'Basic ' + auth
       }
@@ -73,6 +74,7 @@ class Beer {
             const beer = new Beer(item);
             stock.push(beer);
           });
+          console.log(`Successfully retrieved list of ${stock.length} beers in inventory`);
           resolve(stock);
         }
       });
