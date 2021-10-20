@@ -64,3 +64,4 @@ typings/
 **.zip
 .ask/**
 .serverless
+Local.code-workspace
