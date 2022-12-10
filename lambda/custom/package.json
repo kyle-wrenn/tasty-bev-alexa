@@ -22,7 +22,7 @@
     "dotenv": "^6.2.0",
     "eslint": "^8.0.1",
     "eslint-plugin-import": "^2.25.2",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "mocha": "^9.2.0",
     "serverless-local-alexa-server": "^0.2.0",
     "sinon": "^7.5.0"
