@@ -17,7 +17,7 @@
     "request": "^2.88.0"
   },
   "devDependencies": {
-    "body-parser": "^1.19.0",
+    "body-parser": "^1.20.3",
     "chai": "^4.2.0",
     "dotenv": "^6.2.0",
     "eslint": "^8.0.1",
